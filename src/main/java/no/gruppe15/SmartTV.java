@@ -1,4 +1,4 @@
-package no.calmmatt;
+package no.gruppe15;
 
 import java.io.BufferedReader;
 import java.io.IOException;
