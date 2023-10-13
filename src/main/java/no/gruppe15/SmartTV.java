@@ -1,13 +1,17 @@
 package no.gruppe15;
 
 /**
- * Run the TCP Server.
+ * Run the whole Smart TV, including the TCP socket communication.
  */
-
-public class SmartTV {
-    public static void main(String[] args) {
-        TVLogic logic = new TVLogic(13);
-        TVServer server = new TVServer(logic);
-        server.startServer();
-    }
+public class SmartTv {
+  /**
+   * Run the Smart TV, including the server.
+   *
+   * @param args Command line arguments, not used
+   */
+  public static void main(String[] args) {
+    TvLogic logic = new TvLogic(13);
+    TvServer server = new TvServer(logic);
+    server.startServer();
+  }
 }

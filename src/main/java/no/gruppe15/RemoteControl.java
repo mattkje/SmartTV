@@ -1,6 +1,7 @@
 package no.gruppe15;
 
-import static no.gruppe15.TVServer.PORT_NUMBER;
+
+import static no.gruppe15.TvServer.PORT_NUMBER;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class RemoteControl {
       socket = new Socket("localhost", PORT_NUMBER);
       socketWriter = new PrintWriter(socket.getOutputStream(), true);
       socketReader = new BufferedReader(
-              new InputStreamReader(socket.getInputStream()));
+          new InputStreamReader(socket.getInputStream()));
 
       sendCommandToServer("c");
       sendCommandToServer("g");
