@@ -1,6 +1,6 @@
 package no.gruppe15;
 
-import static no.gruppe15.SmartTV.PORT_NUMBER;
+import static no.gruppe15.TVServer.PORT_NUMBER;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,12 +26,27 @@ public class RemoteControl {
       socket = new Socket("localhost", PORT_NUMBER);
       socketWriter = new PrintWriter(socket.getOutputStream(), true);
       socketReader = new BufferedReader(
-          new InputStreamReader(socket.getInputStream()));
+              new InputStreamReader(socket.getInputStream()));
 
       sendCommandToServer("c");
+      sendCommandToServer("g");
       sendCommandToServer("1");
       sendCommandToServer("c");
+      sendCommandToServer("g");
       sendCommandToServer("s13");
+      sendCommandToServer("sDdd");
+      sendCommandToServer("s15");
+      sendCommandToServer("s0");
+      sendCommandToServer("s-2");
+      sendCommandToServer("g");
+      sendCommandToServer("s4");
+      sendCommandToServer("g");
+      sendCommandToServer("0");
+      sendCommandToServer("g");
+      sendCommandToServer("s12");
+      sendCommandToServer("1");
+      sendCommandToServer("g");
+      sendCommandToServer("0");
 
     } catch (IOException e) {
       System.err.println("Could not establish connection to the server: " + e.getMessage());
@@ -39,8 +54,9 @@ public class RemoteControl {
   }
 
   private void sendCommandToServer(String command) throws IOException {
+    System.out.println("Sending command: " + command);
     socketWriter.println(command);
     String serverResponse = socketReader.readLine();
-    System.out.println("Server's response: " + serverResponse);
+    System.out.println("  >>> " + serverResponse);
   }
 }
