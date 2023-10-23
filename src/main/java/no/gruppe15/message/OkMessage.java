@@ -5,8 +5,12 @@ package no.gruppe15.message;
  */
 public class OkMessage extends Message {
 
+  private String feedback;
+  public OkMessage (String feedback){
+    this.feedback = feedback;
+  }
+
   public String getMessage(){
-    return "";
-    //TODO: IMPLEMENT THIS
+    return feedback;
   }
 }

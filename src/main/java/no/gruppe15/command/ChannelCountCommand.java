@@ -1,6 +1,9 @@
-package no.gruppe15.message;
+package no.gruppe15.command;
 
 import no.gruppe15.TvLogic;
+import no.gruppe15.message.ChannelCountMessage;
+import no.gruppe15.message.ErrorMessage;
+import no.gruppe15.message.Message;
 
 /**
  * A command asking for the number of the channels.

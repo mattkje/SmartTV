@@ -1,5 +1,10 @@
 package no.gruppe15.message;
 
+import no.gruppe15.command.ChannelCountCommand;
+import no.gruppe15.command.SetChannelCommand;
+import no.gruppe15.command.TurnOffCommand;
+import no.gruppe15.command.TurnOnCommand;
+
 /**
  * Serializes messages to protocol-defined strings and vice versa.
  */
@@ -12,12 +17,19 @@ public class MessageSerializer {
    */
   public static Message fromString(String s) {
     Message m;
-    switch (s) {
-      case "c":
+    char firstS = s.charAt(0);
+    switch (firstS) {
+      case 'n':
         m = new ChannelCountCommand();
         break;
-      case "1":
+      case 'c':
+        m = new SetChannelCommand(s);
+        break;
+      case '1':
         m = new TurnOnCommand();
+        break;
+      case '0':
+        m = new TurnOffCommand();
         break;
       default:
         m = null;
@@ -28,5 +40,6 @@ public class MessageSerializer {
   public static String toString(Message response) {
 
     return response.getMessage();
+
   }
 }

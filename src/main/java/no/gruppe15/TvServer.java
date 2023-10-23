@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import no.gruppe15.message.Command;
+import no.gruppe15.command.Command;
 import no.gruppe15.message.Message;
 import no.gruppe15.message.MessageSerializer;
 

@@ -1,6 +1,7 @@
-package no.gruppe15.message;
+package no.gruppe15.command;
 
 import no.gruppe15.TvLogic;
+import no.gruppe15.message.Message;
 
 /**
  * A command sent from the client to the server (from remote to TV).

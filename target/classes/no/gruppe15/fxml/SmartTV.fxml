@@ -2,15 +2,11 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.media.*?>
 
-
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: #ccc; -fx-border-width: 20;" fx:controller="no.gruppe15.ui.SmartTVController" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Chuck is da best">
-         <font>
-            <Font size="38.0" />
-         </font>
-      </Label>
+      <Label text="Channel" />
+      <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" />
    </children>
-</HBox>
+</VBox>

@@ -29,6 +29,8 @@ public class RemoteControl {
       socketReader = new BufferedReader(
           new InputStreamReader(socket.getInputStream()));
 
+      sendCommandToServer("1");
+      sendCommandToServer("n");
       sendCommandToServer("c");
       sendCommandToServer("g");
       sendCommandToServer("1");
