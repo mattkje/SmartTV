@@ -26,6 +26,33 @@
             <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>20.0.1</version> <!-- Replace with the version you want to use -->
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>20.0.1</version> <!-- Replace with the version you want to use -->
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>20-ea+9</version> <!-- Replace with the version you want -->
+        </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version> <!-- Replace with the version you want to use -->
+                <configuration>
+                    <mainClass>no.gruppe15.RemoteControl</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
