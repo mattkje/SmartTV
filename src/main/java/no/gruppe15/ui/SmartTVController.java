@@ -10,17 +10,31 @@ public class SmartTVController {
     private MediaView mediaView;
 
     public void initialize() {
-        // Create a Media object with the path to the video file
-        String videoPath = "/media/channel1.mp4";
-        Media media = new Media(videoPath);
+        setChannelMedia("1");
+    }
 
-        // Create a MediaPlayer and set the media to it
+
+    public void setChannelMedia(String channel) {
+        if (channel.isEmpty()) {
+            channel = "1";
+        }
+
+        String videoPath = "/media/channel" + channel + ".mp4";
+        Media media = new Media(getClass().getResource(videoPath).toExternalForm());
+
         MediaPlayer mediaPlayer = new MediaPlayer(media);
 
-        // Set the MediaPlayer to the MediaView
+
+        if (mediaPlayer.getMedia() == null) {
+            String staticVideoPath = "/media/static.mp4";
+            Media staticMedia = new Media(getClass().getResource(staticVideoPath).toExternalForm());
+            mediaPlayer = new MediaPlayer(staticMedia);
+        }
+
+
         mediaView.setMediaPlayer(mediaPlayer);
 
-        // Play the video
         mediaPlayer.play();
     }
+
 }
