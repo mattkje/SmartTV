@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * Remote control for a TV - a TCP client.
@@ -37,9 +38,25 @@ public class RemoteControl {
       socketReader = new BufferedReader(
           new InputStreamReader(socket.getInputStream()));
 
-      sendCommandToServer("1");
-      sendCommandToServer("n");
-      sendCommandToServer("c");
+      Scanner userInputScanner = new Scanner(System.in);
+      Boolean exit = false;
+      while (!exit) {
+        System.out.print("Enter a message: ");
+        String input = userInputScanner.nextLine();
+
+        socketWriter.println(input);
+
+        if (input.equals("exit")){
+          exit = true;
+        }
+
+        //TODO: ADD exception handling if there is a wrong command
+        String serverResponse = socketReader.readLine();
+        System.out.println("Server Response: " + serverResponse);
+      }
+      socketWriter.close();
+      socketReader.close();
+      socket.close();
 
 
     } catch (IOException e) {

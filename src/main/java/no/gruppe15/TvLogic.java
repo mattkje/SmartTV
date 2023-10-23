@@ -27,6 +27,9 @@ public class TvLogic {
    * Turn ON the TV.
    */
   public void turnOn() {
+    if (isTvOn) {
+      throw new IllegalStateException("The TV is already on");
+    }
     isTvOn = true;
   }
 
@@ -34,6 +37,9 @@ public class TvLogic {
    * Turn OFF the TV.
    */
   public void turnOff() {
+    if (!isTvOn) {
+      throw new IllegalStateException("The TV must be turned on first");
+    }
     isTvOn = false;
   }
 
@@ -87,5 +93,25 @@ public class TvLogic {
       throw new IllegalArgumentException("Invalid channel number");
     }
     currentChannel = channel;
+  }
+
+  /**
+   * Changes the channel by x amount.
+   * Receives a number and changes the channel if it exists
+   * Negative numbers move the channel down
+   *
+   * @param amount the amount of channels to move up or down
+   * @throws IllegalStateException When the TV is OFF
+   * @throws IllegalArgumentException When the channel number is invalid
+   */
+
+  public void nextChannel(int amount) throws IllegalStateException, IllegalArgumentException{
+    if (!isTvOn) {
+      throw new IllegalStateException("The TV must be turned on first");
+    }
+    if (currentChannel + amount <= 0 || currentChannel + amount > numberOfChannels){
+      throw new IllegalArgumentException("Invalid channel when skipping " + amount + " channels.");
+    }
+    currentChannel = currentChannel + amount;
   }
 }

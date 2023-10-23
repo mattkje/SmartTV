@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="664.0" style="-fx-border-color: #333; -fx-background-color: #333; -fx-border-radius: 20; -fx-border-width: 20; -fx-spacing: 20;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="no.gruppe15.ui.SmartTVController">
+   <StackPane alignment="CENTER" style="-fx-background-color: black; -fx-border-color: black; -fx-border-width: 10; -fx-border-radius: 20; -fx-background-radius: 20;">
+      <MediaView fx:id="mediaView" fitHeight="360.0" fitWidth="624.0">
+         <clip>
+            <Rectangle arcHeight="20" arcWidth="20" height="360.0" width="624.0" />
+         </clip>
+      </MediaView>
+      <Label fx:id="signal" contentDisplay="CENTER" style="-fx-background-color: rgba(0,0,0,0.49); -fx-background-radius: 20;" textFill="#ffffff">
+         <font>
+            <Font name="JetBrains Mono ExtraBold" size="30.0" />
+         </font>
+      </Label>
+   </StackPane>
+   <HBox alignment="CENTER" prefWidth="624.0" style="-fx-padding: 10;">
+      <children>
+         <HBox fx:id="channelBox" alignment="CENTER" prefHeight="28.0" prefWidth="93.0" style="-fx-background-color: #000; -fx-background-radius: 5;">
+            <children>
+               <Label text="Channel " textFill="WHITE">
+                  <font>
+                     <Font name="JetBrains Mono ExtraBold" size="16.0" />
+                  </font>
+               </Label>
+               <Label fx:id="channelNumber" text="0" textFill="WHITE">
+                  <font>
+                     <Font name="JetBrains Mono ExtraBold" size="16.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+         <HBox prefHeight="28.0" prefWidth="293.0">
+            <children>
+               <TextField fx:id="testChannel" />
+               <Button mnemonicParsing="false" onAction="#setChannelButton" text="Set channel" />
+            </children></HBox>
+         <Label fx:id="status" text="STATUS" textFill="WHITE">
+            <font>
+               <Font name="JetBrains Mono ExtraBold" size="16.0" />
+            </font></Label>
+      </children>
+   </HBox>
+</VBox>
