@@ -32,6 +32,8 @@ public class MessageSerializer {
         m = new TurnOffCommand();
         break;
       default:
+        // TODO: What if the command does not exist?
+        // TODO: User needs more than NULL
         m = null;
     }
     return m;

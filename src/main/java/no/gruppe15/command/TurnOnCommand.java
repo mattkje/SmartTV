@@ -14,7 +14,7 @@ public class TurnOnCommand extends Command {
     return new OkMessage("TV turned on successfully");
   }
   public String getMessage(){
-    return "";
-    //TODO: IMPLEMENT THIS
+    return "This command turns the TV on";
+    //TODO: DOUBLE CHECK THIS LATER ON
   }
 }
