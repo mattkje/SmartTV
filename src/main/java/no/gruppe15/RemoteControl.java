@@ -1,5 +1,7 @@
 package no.gruppe15;
 
+import javafx.application.Application;
+import no.gruppe15.ui.RemoteApp;
 
 import static no.gruppe15.TvServer.PORT_NUMBER;
 
@@ -18,8 +20,14 @@ public class RemoteControl {
   private PrintWriter socketWriter;
 
   public static void main(String[] args) {
-    RemoteControl remoteControl = new RemoteControl();
-    remoteControl.run();
+    Thread remoteThread = new Thread(() -> {
+      RemoteControl remoteControl = new RemoteControl();
+      remoteControl.run();
+    });
+    remoteThread.start();
+
+    Application.launch(RemoteApp.class, args);
+
   }
 
   private void run() {

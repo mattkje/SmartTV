@@ -4,9 +4,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: #ccc; -fx-border-width: 20;" fx:controller="no.gruppe15.ui.SmartTVController" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: #ccc; -fx-border-width: 20;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="no.gruppe15.ui.SmartTVController">
    <children>
-      <Label text="Channel" />
-      <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" />
+      <HBox fx:id="channelBox" alignment="CENTER" prefHeight="26.0" prefWidth="560.0">
+         <children>
+            <Label text="Channel " />
+            <Label fx:id="channelNumber" text="0" />
+         </children>
+      </HBox>
+      <MediaView fx:id="mediaView" fitHeight="300.0" fitWidth="500.0" />
+      <Label fx:id="status" text="STATUS" />
    </children>
 </VBox>

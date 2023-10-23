@@ -2,9 +2,14 @@ package no.gruppe15.ui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
+import no.gruppe15.TvLogic;
+import no.gruppe15.TvServer;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,6 +17,12 @@ import java.util.ResourceBundle;
 public class SmartTVController implements Initializable {
     @FXML
     private MediaView mediaView;
+    @FXML
+    private Label status;
+    @FXML
+    private Label channelNumber;
+    @FXML
+    private HBox channelBox;
 
 
     /**
@@ -23,23 +34,27 @@ public class SmartTVController implements Initializable {
         if (channel.isEmpty()) {
             channel = "1";
         }
+        String videoPath = "/no/gruppe15/media/static.mp4";
+        if (!channel.equals("0")){
+            videoPath = "/no/gruppe15/media/channel" + channel + ".mp4";
+            channelNumber.setText(channel);
+            status.setText("ON");
+            channelBox.setVisible(true);
+        }
 
-        String videoPath = "/media/channel" + channel + ".mp4";
         Media media = new Media(getClass().getResource(videoPath).toExternalForm());
 
         MediaPlayer mediaPlayer = new MediaPlayer(media);
 
-
-        if (mediaPlayer.getMedia() == null || channel.equals("static")) {
-            String staticVideoPath = "/media/static.mp4";
-            Media staticMedia = new Media(getClass().getResource(staticVideoPath).toExternalForm());
-            mediaPlayer = new MediaPlayer(staticMedia);
-        }
-
-
         mediaView.setMediaPlayer(mediaPlayer);
 
+        mediaPlayer.setOnEndOfMedia(() -> {
+            mediaPlayer.seek(Duration.ZERO);
+            mediaPlayer.play();
+        });
+
         mediaPlayer.play();
+
     }
 
     /**
@@ -49,6 +64,14 @@ public class SmartTVController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setChannelMedia("1");
+        setChannelMedia("0");
+        status.setText("OFF");
+        channelBox.setVisible(false);
+
+        turnOnTv();
+    }
+
+    public void turnOnTv(){
+        setChannelMedia("0");
     }
 }

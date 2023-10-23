@@ -15,7 +15,7 @@ public class TvLogic {
    */
   public TvLogic(int numberOfChannels) {
     if (numberOfChannels < 1) {
-      throw new IllegalArgumentException("Number of channels must be a positive number");
+      throw new IllegalArgumentException("Number of channels must be positive");
     }
 
     this.numberOfChannels = numberOfChannels;
@@ -54,7 +54,7 @@ public class TvLogic {
    */
   public int getNumberOfChannels() throws IllegalStateException {
     if (!isTvOn) {
-      throw new IllegalStateException("Must turn on the TV first");
+      throw new IllegalStateException("The TV must be turned on first");
     }
     return numberOfChannels;
   }
@@ -67,7 +67,7 @@ public class TvLogic {
    */
   public int getCurrentChannel() throws IllegalStateException {
     if (!isTvOn) {
-      throw new IllegalStateException("Must turn on the TV first");
+      throw new IllegalStateException("The TV must be turned on first");
     }
     return currentChannel;
   }
@@ -81,7 +81,7 @@ public class TvLogic {
    */
   public void setChannel(int channel) throws IllegalArgumentException, IllegalStateException {
     if (!isTvOn) {
-      throw new IllegalStateException("Must turn on the TV first");
+      throw new IllegalStateException("The TV must be turned on first");
     }
     if (channel <= 0 || channel > numberOfChannels) {
       throw new IllegalArgumentException("Invalid channel number");
