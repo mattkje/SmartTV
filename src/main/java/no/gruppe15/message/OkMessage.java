@@ -5,4 +5,8 @@ package no.gruppe15.message;
  */
 public class OkMessage extends Message {
 
+  public String getMessage(){
+    return "";
+    //TODO: IMPLEMENT THIS
+  }
 }

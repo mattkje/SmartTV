@@ -9,4 +9,8 @@ public class ErrorMessage extends Message {
   public ErrorMessage(String message) {
     this.message = message;
   }
+
+  public String getMessage(){
+    return this.message;
+  }
 }

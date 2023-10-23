@@ -13,4 +13,8 @@ public class ChannelCountMessage extends Message {
   public int getChannelCount() {
     return channelCount;
   }
+
+  public String getMessage(){
+    return "Number of channels: " + this.channelCount;
+  }
 }

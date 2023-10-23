@@ -26,7 +26,7 @@ public class MessageSerializer {
   }
 
   public static String toString(Message response) {
-    // TODO - implement
-    return "TODO";
+
+    return response.getMessage();
   }
 }

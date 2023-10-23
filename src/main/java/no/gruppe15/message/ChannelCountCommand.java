@@ -17,4 +17,8 @@ public class ChannelCountCommand extends Command {
     }
     return response;
   }
+  public String getMessage(){
+    return "";
+    //TODO: IMPLEMENT THIS
+  }
 }

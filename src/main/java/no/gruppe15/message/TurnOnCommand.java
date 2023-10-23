@@ -11,4 +11,8 @@ public class TurnOnCommand extends Command {
     logic.turnOn();
     return new OkMessage();
   }
+  public String getMessage(){
+    return "";
+    //TODO: IMPLEMENT THIS
+  }
 }
