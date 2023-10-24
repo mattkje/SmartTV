@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import no.gruppe15.command.Command;
+import no.gruppe15.message.ErrorMessage;
 import no.gruppe15.message.Message;
 import no.gruppe15.message.MessageSerializer;
 
@@ -96,6 +97,7 @@ public class TvServer {
     Message clientCommand = null;
     try {
       String rawClientRequest = socketReader.readLine();
+
       clientCommand = MessageSerializer.fromString(rawClientRequest);
       if (!(clientCommand instanceof Command)) {
         System.err.println("Wrong message from the client: " + clientCommand);

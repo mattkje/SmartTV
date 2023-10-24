@@ -1,9 +1,6 @@
 package no.gruppe15.message;
 
-import no.gruppe15.command.ChannelCountCommand;
-import no.gruppe15.command.SetChannelCommand;
-import no.gruppe15.command.TurnOffCommand;
-import no.gruppe15.command.TurnOnCommand;
+import no.gruppe15.command.*;
 
 /**
  * Serializes messages to protocol-defined strings and vice versa.
@@ -17,25 +14,17 @@ public class MessageSerializer {
    */
   public static Message fromString(String s) {
     Message m;
-    char firstS = s.charAt(0);
-    switch (firstS) {
-      case 'n':
-        m = new ChannelCountCommand();
-        break;
-      case 'c':
-        m = new SetChannelCommand(s);
-        break;
-      case '1':
-        m = new TurnOnCommand();
-        break;
-      case '0':
-        m = new TurnOffCommand();
-        break;
-      default:
-        // TODO: What if the command does not exist?
-        // TODO: User needs more than NULL
-        m = null;
+    if (s.isEmpty()){
+      return new IgnoreCommand();
     }
+    char firstS = s.charAt(0);
+      m = switch (firstS) {
+          case 'n' -> new ChannelCountCommand();
+          case 'c' -> new SetChannelCommand(s);
+          case '1' -> new TurnOnCommand();
+          case '0' -> new TurnOffCommand();
+          default -> new IgnoreCommand(); //TODO Håkon fix
+      };
     return m;
   }
 
