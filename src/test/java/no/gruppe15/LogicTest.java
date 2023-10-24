@@ -8,6 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.Test;
 
+/**
+ * Test class for the TVLogic class.
+ *
+ */
+
 public class LogicTest {
 
 
