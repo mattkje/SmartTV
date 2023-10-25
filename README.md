@@ -1,6 +1,27 @@
-# SmartTV
+# SmartTV - Group 15
+_Contributing members: Matti Kjellstadli, Håkon Svensen Karlsen, Di Xie, Adrian Faustino Johansen_
 
-## Assignment
+## About This Program
+This program was created as an assignment for a networking class at NTNU (IDATA2304).
+Written below are the requirements of the assignment and a short user manual for the program itself.
+
+This program sets up a TVserver with a given number of channels and a remote controller 
+to control the server from a remote client. Only one controlller is allowed per TV, but there can
+be several TVservers open at once.
+
+## User Manual
+To run the application from the IDE you first need to run the SmartTV class and then you need to run the 
+RemoteControll class. This sets up both a server and a client connection. You are then able to either interact directly 
+with the GUI as you normally would do when operating a TV or you can type directly into the client console.
+
+To operate the client console you can type any of these commands:
+```
+1 - Turn the TV on
+0 - Turn the TV off
+n - See the available channels
+c - change channel. "c2" changes it to channel 2, | ex C3,C4 etc...
+```
+## The Assignment
 This socket programming exercise consists of three parts. Your group needs to finish all three parts until the deadline. 
 Also, you will need to discuss your solution with teachers during checkpoint C2 (tentative date: November 3rd).
 
