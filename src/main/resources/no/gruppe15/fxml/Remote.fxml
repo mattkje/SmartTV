@@ -6,9 +6,9 @@
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="202.0" style="-fx-padding: 20; -fx-background-color: #ccc;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="textField" alignment="CENTER" prefHeight="53.0" promptText="Command" style="-fx-background-radius: 10;">
+      <TextField fx:id="textField" alignment="CENTER" disable="true" editable="false" prefHeight="53.0" promptText="Command" style="-fx-background-radius: 10; -fx-opacity: 1;">
          <font>
-            <Font name="JetBrains Mono ExtraBold" size="22.0" />
+            <Font name="Segoe UI Semibold" size="14.0" />
          </font></TextField>
       <VBox prefHeight="23.0" prefWidth="162.0" />
       <GridPane alignment="CENTER" style="-fx-vgap: 20; -fx-hgap: 10;">
@@ -27,80 +27,80 @@
          <children>
             <Button mnemonicParsing="false" onAction="#turnOn" prefWidth="45.0" style="-fx-background-radius: 10;" text="ON">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button mnemonicParsing="false" onAction="#turnOff" prefWidth="45.0" style="-fx-background-radius: 10;" text="OFF" GridPane.columnIndex="1">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button mnemonicParsing="false" onAction="#getNumberOfChannels" prefWidth="45.0" style="-fx-background-radius: 10;" text="N" GridPane.columnIndex="2">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button fx:id="n1" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="1" GridPane.rowIndex="1">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button fx:id="n2" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="2" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button fx:id="n3" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="3" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button fx:id="n4" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="4" GridPane.rowIndex="2">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button fx:id="n5" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button fx:id="n6" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="6" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button fx:id="n7" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="7" GridPane.rowIndex="3">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button fx:id="n8" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="8" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button fx:id="n9" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="9" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button fx:id="n0" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
-                  <Font name="JetBrains Mono ExtraBold" size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font></Button>
             <Button mnemonicParsing="false" onAction="#channelDown" prefWidth="45.0" style="-fx-background-radius: 10;" text="-" GridPane.rowIndex="4">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font>
             </Button>
             <Button mnemonicParsing="false" onAction="#channelUp" prefWidth="45.0" style="-fx-background-radius: 10;" text="+" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Segoe UI Semibold" size="14.0" />
                </font>
             </Button>
          </children>
       </GridPane>
       <Label prefHeight="210.0" prefWidth="104.0" text="Smart Remote">
          <font>
-            <Font name="JetBrains Mono ExtraBold" size="14.0" />
+            <Font name="Segoe UI Semibold" size="14.0" />
          </font></Label>
       <Label text="Connection status">
          <font>
-            <Font name="JetBrains Mono ExtraBold" size="11.0" />
+            <Font name="Segoe UI Semibold" size="14.0" />
          </font>
       </Label>
-      <Label text="Not connected" textFill="#ff0f0f">
+      <Label fx:id="connection" text="Not connected" textFill="#ff0f0f">
          <font>
-            <Font name="JetBrains Mono ExtraLight" size="11.0" />
+            <Font name="Segoe UI Semibold" size="14.0" />
          </font>
       </Label>
    </children>

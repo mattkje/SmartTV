@@ -25,7 +25,7 @@ public class SmartTvApp extends Application {
     loader = new FXMLLoader(this.getClass().getResource("/no/gruppe15/fxml/SmartTV.fxml"));
     loader.setController(controller);
     Scene scene = new Scene(loader.load());
-
+    primaryStage.setResizable(false);
     primaryStage.setScene(scene);
     primaryStage.setTitle("SmartTV");
     primaryStage.show();

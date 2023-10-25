@@ -26,6 +26,7 @@ public class RemoteApp extends Application {
     controller.setPrintWriter(remoteControl.getSocketWriter());
     loader.setController(controller);
     Scene scene = new Scene(loader.load());
+    primaryStage.setResizable(false);
     primaryStage.setScene(scene);
     primaryStage.setTitle("Remote");
     primaryStage.show();

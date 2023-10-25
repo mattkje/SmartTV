@@ -4,21 +4,29 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.io.PrintWriter;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Controller class for the RemoteApp class.
  */
-public class RemoteController {
+public class RemoteController implements Initializable {
 
   private PrintWriter printWriter;
 
   @FXML
   private TextField textField;
+
+  @FXML
+  private Label connection;
   private Timeline timer;
 
   public void setPrintWriter(PrintWriter printWriter) {
@@ -75,5 +83,16 @@ public class RemoteController {
 
   public void getNumberOfChannels() {
     sendCommandToServer("n");
+  }
+
+  @Override
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+    if (printWriter != null){
+      connection.setText("Connected");
+      connection.setTextFill(Color.LIME);
+    } else {
+      connection.setText("Not connected");
+      connection.setTextFill(Color.RED);
+    }
   }
 }
