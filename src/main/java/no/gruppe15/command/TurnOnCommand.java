@@ -7,7 +7,8 @@ import no.gruppe15.message.OkMessage;
 import no.gruppe15.ui.SmartTVController;
 
 /**
- * A command requesting to turn on the TV.
+ * A command requesting to turn on the TV when executed.
+ * Handles exceptions when TV is already turned on
  */
 public class TurnOnCommand extends Command {
   @Override
@@ -15,12 +16,13 @@ public class TurnOnCommand extends Command {
     try {
       logic.turnOn();
       return new OkMessage("TV turned on successfully");
-    } catch (IllegalStateException e){
+    } catch (IllegalStateException e) {
       return new ErrorMessage("The TV is already on");
     }
 
   }
-  public String getMessage(){
+
+  public String getMessage() {
     return "This command turns the TV on";
     //TODO: DOUBLE CHECK THIS LATER ON
   }
