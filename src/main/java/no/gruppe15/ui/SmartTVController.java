@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import java.net.URL;
 import java.util.Objects;
@@ -33,6 +34,9 @@ public class SmartTVController implements Initializable {
   private Label status;
   @FXML
   private Label channelNumber;
+  @FXML
+  private Label channelLabel;
+
   @FXML
   private Label signal;
   @FXML
@@ -58,8 +62,9 @@ public class SmartTVController implements Initializable {
     if (channel.equals("0")) {
         Platform.runLater(() -> {
             mediaView.setVisible(false);
-            status.setText("OFF");
-            channelBox.setVisible(false);
+            status.setTextFill(Color.RED);
+            channelNumber.setText("OFF");
+            channelLabel.setText("");
         });
 
       return;
@@ -83,8 +88,8 @@ public class SmartTVController implements Initializable {
   private String getVideoPath(String channel) {
     Platform.runLater(() -> {
       channelNumber.setText(channel);
-      status.setText("ON");
-      channelBox.setVisible(true);
+      status.setTextFill(Color.LIME);
+      channelLabel.setText("Channel ");
     });
 
     return "/no/gruppe15/media/channel" + channel + ".mp4";
@@ -168,8 +173,9 @@ public class SmartTVController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     setChannelMedia("0");
-    status.setText("OFF");
-    channelBox.setVisible(false);
+    status.setTextFill(Color.RED);
+    channelNumber.setText("OFF");
+    channelLabel.setText("");
   }
 
 

@@ -31,22 +31,22 @@ public class RemoteController {
     Button button = (Button) event.getSource();
     String buttonText = button.getText();
 
-    // Append the button's text to the TextField
+
     textField.appendText(buttonText);
 
     if (timer != null) {
-      // If a timer exists (i.e., a button was pressed within the last second), stop and reset it.
+
       timer.stop();
     }
 
     // Create a new timer with a 1-second delay
     timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-      // Send the command to the server after the delay
+
       String text = textField.getText();
       sendCommandToServer("c"+text);
       textField.setText("");
     }));
-    timer.playFromStart(); // Restart the timer
+    timer.playFromStart();
   }
 
   private void sendCommandToServer(String command) {
@@ -63,6 +63,14 @@ public class RemoteController {
 
   public void turnOff() {
     sendCommandToServer("0");
+  }
+
+  public void channelDown() {
+    sendCommandToServer("c2");
+  }
+
+  public void channelUp() {
+    sendCommandToServer("c4");
   }
 
   public void getNumberOfChannels() {

@@ -4,12 +4,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="202.0" style="-fx-padding: 20; -fx-background-color: #ccc;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" >
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="202.0" style="-fx-padding: 20; -fx-background-color: #ccc;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="textField" alignment="CENTER" prefHeight="53.0" promptText="Command" style="-fx-background-radius: 10;">
          <font>
-            <Font name="JetBrains Mono ExtraBold" size="13.0" />
+            <Font name="JetBrains Mono ExtraBold" size="22.0" />
          </font></TextField>
+      <VBox prefHeight="23.0" prefWidth="162.0" />
       <GridPane alignment="CENTER" style="-fx-vgap: 20; -fx-hgap: 10;">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -76,6 +77,16 @@
                <font>
                   <Font name="JetBrains Mono ExtraBold" size="14.0" />
                </font></Button>
+            <Button mnemonicParsing="false" onAction="#channelDown" prefWidth="45.0" style="-fx-background-radius: 10;" text="-" GridPane.rowIndex="4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#channelUp" prefWidth="45.0" style="-fx-background-radius: 10;" text="+" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
       </GridPane>
       <Label prefHeight="210.0" prefWidth="104.0" text="Smart Remote">
