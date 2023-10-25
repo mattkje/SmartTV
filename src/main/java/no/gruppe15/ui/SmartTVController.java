@@ -108,7 +108,12 @@ public class SmartTVController implements Initializable {
             return new Media(Objects.requireNonNull(getClass()
                     .getResource(videoPath)).toExternalForm());
         } catch (NullPointerException e) {
-            signal.setText(" NO SIGNAL ");
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    signal.setText(" NO SIGNAL ");
+                }
+            });
             return new Media(Objects.requireNonNull(getClass()
                     .getResource("/no/gruppe15/media/static.mp4")).toExternalForm());
         }
@@ -175,11 +180,4 @@ public class SmartTVController implements Initializable {
     }
 
 
-    //TODO: delete local Controls for testing
-    @FXML
-    private TextField testChannel;
-
-    public void setChannelButton() {
-        setChannelMedia(testChannel.getText());
-    }
 }

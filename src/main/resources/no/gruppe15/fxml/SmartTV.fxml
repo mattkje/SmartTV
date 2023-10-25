@@ -35,11 +35,7 @@
                </Label>
             </children>
          </HBox>
-         <HBox prefHeight="28.0" prefWidth="293.0">
-            <children>
-               <TextField fx:id="testChannel" />
-               <Button mnemonicParsing="false" onAction="#setChannelButton" text="Set channel" />
-            </children></HBox>
+         <HBox prefHeight="28.0" prefWidth="293.0"/>
          <Label fx:id="status" text="STATUS" textFill="WHITE">
             <font>
                <Font name="JetBrains Mono ExtraBold" size="16.0" />
