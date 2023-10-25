@@ -15,6 +15,7 @@ public class TurnOffCommand extends Command {
   public Message execute(TvLogic logic, SmartTVController controller) {
     try {
       logic.turnOff();
+      controller.setChannelMedia("0");
       return new OkMessage("TV turned off successfully");
     } catch (IllegalStateException e) {
       return new ErrorMessage("The TV must be turned on first");

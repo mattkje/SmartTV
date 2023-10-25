@@ -56,9 +56,12 @@ public class SmartTVController implements Initializable {
       return;
     }
     if (channel.equals("0")) {
-      mediaView.setVisible(false);
-      status.setText("OFF");
-      channelBox.setVisible(false);
+        Platform.runLater(() -> {
+            mediaView.setVisible(false);
+            status.setText("OFF");
+            channelBox.setVisible(false);
+        });
+
       return;
     }
     mediaView.setVisible(true);
@@ -78,13 +81,10 @@ public class SmartTVController implements Initializable {
    * @return the channel media file path as a string.
    */
   private String getVideoPath(String channel) {
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        channelNumber.setText(channel);
-        status.setText("ON");
-        channelBox.setVisible(true);
-      }
+    Platform.runLater(() -> {
+      channelNumber.setText(channel);
+      status.setText("ON");
+      channelBox.setVisible(true);
     });
 
     return "/no/gruppe15/media/channel" + channel + ".mp4";
@@ -100,22 +100,12 @@ public class SmartTVController implements Initializable {
   private Media createMedia(String videoPath, String channel) {
     try {
       channelDisplay();
-      Platform.runLater(new Runnable() {
-        @Override
-        public void run() {
-          signal.setText(" Channel " + channel + " ");
-        }
-      });
+      Platform.runLater(() -> signal.setText(" Channel " + channel + " "));
 
       return new Media(Objects.requireNonNull(getClass()
           .getResource(videoPath)).toExternalForm());
     } catch (NullPointerException e) {
-      Platform.runLater(new Runnable() {
-        @Override
-        public void run() {
-          signal.setText(" NO SIGNAL ");
-        }
-      });
+      Platform.runLater(() -> signal.setText(" NO SIGNAL "));
       return new Media(Objects.requireNonNull(getClass()
           .getResource("/no/gruppe15/media/static.mp4")).toExternalForm());
     }

@@ -21,17 +21,11 @@ public class RemoteControl {
   private PrintWriter socketWriter;
 
   public static void main(String[] args) {
-    Thread remoteThread = new Thread(() -> {
-      RemoteControl remoteControl = new RemoteControl();
-      remoteControl.run();
-    });
-    remoteThread.start();
-
     Application.launch(RemoteApp.class, args);
 
   }
 
-  private void run() {
+  public void run() {
     try {
       socket = new Socket("localhost", PORT_NUMBER);
       socketWriter = new PrintWriter(socket.getOutputStream(), true);
@@ -69,5 +63,9 @@ public class RemoteControl {
     socketWriter.println(command);
     String serverResponse = socketReader.readLine();
     System.out.println("  >>> " + serverResponse);
+  }
+
+  public PrintWriter getSocketWriter(){
+    return this.socketWriter;
   }
 }

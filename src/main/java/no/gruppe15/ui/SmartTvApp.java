@@ -11,7 +11,6 @@ import no.gruppe15.TvServer;
  * GUI for the smart tv.
  */
 public class SmartTvApp extends Application {
-  private SmartTVController controller;
   private FXMLLoader loader;
 
   @Override
