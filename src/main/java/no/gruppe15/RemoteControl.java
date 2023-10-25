@@ -39,7 +39,7 @@ public class RemoteControl {
           new InputStreamReader(socket.getInputStream()));
 
       Scanner userInputScanner = new Scanner(System.in);
-      Boolean exit = false;
+      boolean exit = false;
       while (!exit) {
         System.out.print("Enter a message: ");
         String input = userInputScanner.nextLine();

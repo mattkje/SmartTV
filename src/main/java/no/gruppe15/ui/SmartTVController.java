@@ -3,6 +3,7 @@ package no.gruppe15.ui;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -76,9 +77,15 @@ public class SmartTVController implements Initializable {
      * @return the channel media file path as a string.
      */
     private String getVideoPath(String channel) {
-        channelNumber.setText(channel);
-        status.setText("ON");
-        channelBox.setVisible(true);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                channelNumber.setText(channel);
+                status.setText("ON");
+                channelBox.setVisible(true);
+            }
+        });
+
         return "/no/gruppe15/media/channel" + channel + ".mp4";
     }
 
@@ -91,7 +98,13 @@ public class SmartTVController implements Initializable {
     private Media createMedia(String videoPath, String channel) {
         try {
             channelDisplay();
-            signal.setText(" Channel " + channel + " ");
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    signal.setText(" Channel " + channel + " ");
+                }
+            });
+
             return new Media(Objects.requireNonNull(getClass()
                     .getResource(videoPath)).toExternalForm());
         } catch (NullPointerException e) {
@@ -126,7 +139,7 @@ public class SmartTVController implements Initializable {
             mediaPlayer.seek(Duration.ZERO);
             mediaPlayer.play();
         });
-        mediaPlayer.setMute(true);
+        //mediaPlayer.setMute(true);
 
         PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
         pause.setOnFinished(event -> {

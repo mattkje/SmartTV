@@ -10,6 +10,7 @@ import no.gruppe15.command.Command;
 import no.gruppe15.message.ErrorMessage;
 import no.gruppe15.message.Message;
 import no.gruppe15.message.MessageSerializer;
+import no.gruppe15.ui.SmartTVController;
 
 /**
  * Handles the TCP server socket(s).
@@ -27,12 +28,15 @@ public class TvServer {
   private static final String CURRENT_CHANNEL_MESSAGE = "C";
   private final TvLogic logic;
 
+  private final SmartTVController controller;
+
   boolean isTcpServerRunning;
   private BufferedReader socketReader;
   private PrintWriter socketWriter;
 
-  public TvServer(TvLogic logic) {
+  public TvServer(TvLogic logic, SmartTVController controller) {
     this.logic = logic;
+    this.controller = controller;
   }
 
   /**
@@ -81,7 +85,7 @@ public class TvServer {
     do {
       Command clientCommand = readClientRequest();
       System.out.println("Received from client: " + clientCommand);
-      response = clientCommand.execute(logic);
+      response = clientCommand.execute(logic, controller);
       if (response != null) {
         sendResponseToClient(response);
       }

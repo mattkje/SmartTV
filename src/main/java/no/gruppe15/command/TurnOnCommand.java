@@ -11,7 +11,7 @@ import no.gruppe15.ui.SmartTVController;
  */
 public class TurnOnCommand extends Command {
   @Override
-  public Message execute(TvLogic logic) {
+  public Message execute(TvLogic logic, SmartTVController controller) {
     try {
       logic.turnOn();
       return new OkMessage("TV turned on successfully");

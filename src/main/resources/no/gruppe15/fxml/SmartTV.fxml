@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="664.0" style="-fx-border-color: #333; -fx-background-color: #333; -fx-border-radius: 20; -fx-border-width: 20; -fx-spacing: 20;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="no.gruppe15.ui.SmartTVController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="664.0" style="-fx-border-color: #333; -fx-background-color: #333; -fx-border-radius: 20; -fx-border-width: 20; -fx-spacing: 20;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <StackPane alignment="CENTER" style="-fx-background-color: black; -fx-border-color: black; -fx-border-width: 10; -fx-border-radius: 20; -fx-background-radius: 20;">
       <MediaView fx:id="mediaView" fitHeight="360.0" fitWidth="624.0">
          <clip>

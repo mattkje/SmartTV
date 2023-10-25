@@ -4,10 +4,11 @@ import no.gruppe15.TvLogic;
 import no.gruppe15.message.ErrorMessage;
 import no.gruppe15.message.Message;
 import no.gruppe15.message.OkMessage;
+import no.gruppe15.ui.SmartTVController;
 
 public class IgnoreCommand extends Command{
     @Override
-    public Message execute(TvLogic logic) {
+    public Message execute(TvLogic logic, SmartTVController controller) {
         return new ErrorMessage("Invalid command");
     }
     public String getMessage(){
