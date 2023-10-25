@@ -7,7 +7,7 @@ import no.gruppe15.message.OkMessage;
 import no.gruppe15.ui.SmartTVController;
 
 /**
- * Command that is sent when user imput is to be ignored.
+ * Command that is sent when user input is to be ignored.
  * Returns "invalid command"
  */
 public class IgnoreCommand extends Command {

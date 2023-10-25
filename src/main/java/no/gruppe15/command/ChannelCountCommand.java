@@ -15,6 +15,7 @@ public class ChannelCountCommand extends Command {
     Message response;
     try {
       int channelCount = logic.getNumberOfChannels();
+      controller.displayNumberOfChannels(channelCount);
       response = new ChannelCountMessage(channelCount);
     } catch (IllegalStateException e) {
       response = new ErrorMessage(e.getMessage());

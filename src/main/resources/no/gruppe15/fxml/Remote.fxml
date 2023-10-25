@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="202.0" style="-fx-padding: 20; -fx-background-color: #ccc;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="202.0" style="-fx-padding: 20; -fx-background-color: #222;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="textField" alignment="CENTER" disable="true" editable="false" prefHeight="53.0" promptText="Command" style="-fx-background-radius: 10; -fx-opacity: 1;">
+      <TextField fx:id="textField" alignment="CENTER" disable="true" editable="false" prefHeight="53.0" promptText="..." style="-fx-background-radius: 10; -fx-background-color: #111; -fx-opacity: 1; -fx-text-fill: #59b266;">
          <font>
-            <Font name="Segoe UI Semibold" size="14.0" />
-         </font></TextField>
+            <Font name="Monospaced Regular" size="14.0" />
+         </font>
+         <effect>
+            <DropShadow height="10.5" radius="4.75" width="10.5" />
+         </effect></TextField>
       <VBox prefHeight="23.0" prefWidth="162.0" />
       <GridPane alignment="CENTER" style="-fx-vgap: 20; -fx-hgap: 10;">
         <columnConstraints>
@@ -23,85 +27,144 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#turnOn" prefWidth="45.0" style="-fx-background-radius: 10;" text="ON">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button mnemonicParsing="false" onAction="#turnOff" prefWidth="45.0" style="-fx-background-radius: 10;" text="OFF" GridPane.columnIndex="1">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button mnemonicParsing="false" onAction="#getNumberOfChannels" prefWidth="45.0" style="-fx-background-radius: 10;" text="N" GridPane.columnIndex="2">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button fx:id="n1" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="1" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button fx:id="n2" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="2" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button fx:id="n3" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="3" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button fx:id="n4" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="4" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button fx:id="n5" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button fx:id="n6" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="6" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button fx:id="n7" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="7" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button fx:id="n8" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="8" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button fx:id="n9" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="9" GridPane.columnIndex="2" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button fx:id="n0" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10;" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font></Button>
-            <Button mnemonicParsing="false" onAction="#channelDown" prefWidth="45.0" style="-fx-background-radius: 10;" text="-" GridPane.rowIndex="4">
+            <Button mnemonicParsing="false" onAction="#turnOn" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="ON">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#channelUp" prefWidth="45.0" style="-fx-background-radius: 10;" text="+" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button mnemonicParsing="false" onAction="#turnOff" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="OFF" GridPane.columnIndex="1">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button mnemonicParsing="false" onAction="#getNumberOfChannels" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="N" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button fx:id="n1" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button fx:id="n2" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="2" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button fx:id="n3" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="3" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button fx:id="n4" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="4" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button fx:id="n5" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button fx:id="n6" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="6" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button fx:id="n7" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="7" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button fx:id="n8" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="8" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button fx:id="n9" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="9" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button fx:id="n0" mnemonicParsing="false" onAction="#onNumberButtonClicked" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
+            <Button mnemonicParsing="false" onAction="#channelDown" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="-" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect>
             </Button>
+            <Button mnemonicParsing="false" onAction="#channelUp" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="+" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#mute" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="M" GridPane.columnIndex="2">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow height="10.5" radius="4.75" width="10.5" />
+               </effect></Button>
          </children>
       </GridPane>
-      <Label prefHeight="210.0" prefWidth="104.0" text="Smart Remote">
+      <Label prefHeight="152.0" prefWidth="104.0" text="Smart Remote" textFill="#bfbfbf">
          <font>
             <Font name="Segoe UI Semibold" size="14.0" />
          </font></Label>
-      <Label text="Connection status">
+      <Label text="Connection status" textFill="#c6c6c6">
          <font>
             <Font name="Segoe UI Semibold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="connection" text="Not connected" textFill="#ff0f0f">
+      <Label fx:id="connection" alignment="CENTER" prefHeight="40.0" prefWidth="133.0" style="-fx-background-color: #111; -fx-padding: 6; -fx-background-radius: 5;" text="Not connected" textFill="#ff0f0f">
          <font>
-            <Font name="Segoe UI Semibold" size="14.0" />
+            <Font name="Monospaced Regular" size="13.0" />
          </font>
+         <effect>
+            <DropShadow height="10.5" radius="4.75" width="10.5" />
+         </effect>
       </Label>
    </children>
+   <effect>
+      <Glow level="0.19" />
+   </effect>
 </VBox>

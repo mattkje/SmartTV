@@ -7,7 +7,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -34,6 +33,8 @@ public class SmartTVController implements Initializable {
   private Label status;
   @FXML
   private Label channelNumber;
+  @FXML
+  private HBox channelNumberBox;
   @FXML
   private Label channelLabel;
 
@@ -104,13 +105,18 @@ public class SmartTVController implements Initializable {
    */
   private Media createMedia(String videoPath, String channel) {
     try {
-      channelDisplay();
-      Platform.runLater(() -> signal.setText(" Channel " + channel + " "));
-
+      Platform.runLater(() -> {
+        channelDisplay(2);
+        signal.setText(" Channel " + channel + " ");
+        channelNumberBox.setVisible(true);
+      });
       return new Media(Objects.requireNonNull(getClass()
           .getResource(videoPath)).toExternalForm());
     } catch (NullPointerException e) {
-      Platform.runLater(() -> signal.setText(" NO SIGNAL "));
+      Platform.runLater(() -> {
+        signal.setText(" NO SIGNAL ");
+        channelNumberBox.setVisible(true);
+      });
       return new Media(Objects.requireNonNull(getClass()
           .getResource("/no/gruppe15/media/static.mp4")).toExternalForm());
     }
@@ -153,15 +159,29 @@ public class SmartTVController implements Initializable {
 
   /**
    * This method is responsible for displaying the selected channel.
-   * for 2 seconds on the tv display
+   * for x seconds on the tv display
    */
-  public void channelDisplay() {
+  public void channelDisplay(int seconds) {
     Timeline timeline = new Timeline(new KeyFrame(
-        Duration.seconds(2),
+        Duration.seconds(seconds),
         event -> {
           signal.setText("");
+          channelNumberBox.setVisible(false);
         }));
     timeline.play();
+  }
+
+  /**
+   * This method should display available channels on the screen.
+   *
+   * @param channelNumber Current available channels.
+   */
+  public void displayNumberOfChannels(int channelNumber){
+    Platform.runLater(() -> {
+      channelDisplay(3);
+      signal.setText(" " + channelNumber + " Channels available ");
+      channelNumberBox.setVisible(true);
+    });
   }
 
   /**
@@ -177,6 +197,4 @@ public class SmartTVController implements Initializable {
     channelNumber.setText("OFF");
     channelLabel.setText("");
   }
-
-
 }

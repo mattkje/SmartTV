@@ -3,6 +3,7 @@ package no.gruppe15.ui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import no.gruppe15.RemoteControl;
 
@@ -28,7 +29,8 @@ public class RemoteApp extends Application {
     Scene scene = new Scene(loader.load());
     primaryStage.setResizable(false);
     primaryStage.setScene(scene);
-    primaryStage.setTitle("Remote");
+    primaryStage.getIcons().add(new Image("/no/gruppe15/media/remote.png"));
+    primaryStage.setTitle("");
     primaryStage.show();
   }
 }

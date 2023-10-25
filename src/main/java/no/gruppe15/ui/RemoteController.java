@@ -80,6 +80,9 @@ public class RemoteController implements Initializable {
   public void channelUp() {
     sendCommandToServer("c4");
   }
+  public void mute() {
+    sendCommandToServer("m");
+  }
 
   public void getNumberOfChannels() {
     sendCommandToServer("n");

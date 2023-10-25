@@ -1,45 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="664.0" style="-fx-border-color: #333; -fx-background-color: #333; -fx-border-radius: 20; -fx-border-width: 20; -fx-spacing: 20;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
-   <StackPane alignment="CENTER" style="-fx-background-color: black; -fx-border-color: black; -fx-border-width: 10; -fx-border-radius: 20; -fx-background-radius: 20;">
+   <StackPane alignment="CENTER" style="-fx-background-color: #0e0e0e; -fx-border-color: black; -fx-border-width: 10; -fx-border-radius: 20; -fx-background-radius: 20;">
       <MediaView fx:id="mediaView" fitHeight="360.0" fitWidth="624.0">
          <clip>
             <Rectangle arcHeight="20" arcWidth="20" height="360.0" width="624.0" />
          </clip>
       </MediaView>
-      <Label fx:id="signal" contentDisplay="CENTER" style="-fx-background-color: rgba(0,0,0,0.49); -fx-background-radius: 20;" textFill="#ffffff">
-         <font>
-            <Font name="JetBrains Mono ExtraBold" size="30.0" />
-         </font>
-      </Label>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <bottom>
+            <HBox fx:id="channelNumberBox" alignment="CENTER_LEFT" prefHeight="63.0" prefWidth="624.0" style="-fx-padding: 5; -fx-background-color: rgba(0,0,0,0.70);" visible="false" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="signal" contentDisplay="CENTER" textFill="#ffffff">
+                     <font>
+                        <Font name="Segoe UI Black" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </bottom></BorderPane>
+      <effect>
+         <DropShadow />
+      </effect>
    </StackPane>
-   <HBox alignment="CENTER" prefWidth="624.0" style="-fx-padding: 10;">
+   <HBox alignment="CENTER" prefWidth="624.0" style="-fx-padding: 10; -fx-background-color: #222; -fx-background-radius: 10;">
       <children>
-         <HBox fx:id="channelBox" alignment="CENTER" prefHeight="28.0" prefWidth="93.0" style="-fx-background-color: #000; -fx-background-radius: 5;">
+         <HBox fx:id="channelBox" alignment="CENTER" prefHeight="34.0" prefWidth="137.0" style="-fx-background-color: #000; -fx-background-radius: 5;">
             <children>
-               <Label fx:id="channelLabel" text="Channel " textFill="WHITE">
+               <Label fx:id="channelLabel" text="Channel " textFill="#59b266">
                   <font>
-                     <Font name="JetBrains Mono ExtraBold" size="16.0" />
+                     <Font name="Monospaced Regular" size="18.0" />
                   </font>
                </Label>
-               <Label fx:id="channelNumber" text="0" textFill="WHITE">
+               <Label fx:id="channelNumber" text="0" textFill="#59b266">
                   <font>
-                     <Font name="JetBrains Mono ExtraBold" size="16.0" />
+                     <Font name="Monospaced Regular" size="18.0" />
                   </font>
                </Label>
             </children>
          </HBox>
          <HBox prefHeight="28.0" prefWidth="293.0" />
-         <Label fx:id="status" text="●" textFill="RED">
+         <Label fx:id="status" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="24.0" text="●" textFill="RED">
             <font>
                <Font name="JetBrains Mono ExtraBold" size="25.0" />
-            </font></Label>
+            </font>
+            <effect>
+               <Glow level="0.61" />
+            </effect></Label>
       </children>
+      <effect>
+         <DropShadow height="10.5" radius="4.75" spread="0.26" width="10.5">
+            <color>
+               <Color opacity="0.5497835278511047" />
+            </color></DropShadow>
+      </effect>
    </HBox>
+   <effect>
+      <Glow level="0.19" />
+   </effect>
 </VBox>

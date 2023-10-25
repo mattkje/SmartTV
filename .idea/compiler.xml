@@ -9,5 +9,12 @@
         <module name="SmartTV" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="remote" target="20" />
+      <module name="SmartTV (1)" target="20" />
+      <module name="smartTV (2)" target="20" />
+      <module name="SmartTV (2)" target="20" />
+      <module name="SmartTV (3)" target="20" />
+    </bytecodeTargetLevel>
   </component>
 </project>
