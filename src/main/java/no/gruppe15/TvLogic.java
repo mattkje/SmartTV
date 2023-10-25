@@ -83,7 +83,7 @@ public class TvLogic {
    *
    * @param channel The desired channel
    * @throws IllegalArgumentException When the channel number is invalid
-   * @throws IllegalStateException When the TV is OFF
+   * @throws IllegalStateException    When the TV is OFF
    */
   public void setChannel(int channel) throws IllegalArgumentException, IllegalStateException {
     if (!isTvOn) {
@@ -101,15 +101,15 @@ public class TvLogic {
    * Negative numbers move the channel down
    *
    * @param amount the amount of channels to move up or down
-   * @throws IllegalStateException When the TV is OFF
+   * @throws IllegalStateException    When the TV is OFF
    * @throws IllegalArgumentException When the channel number is invalid
    */
 
-  public void nextChannel(int amount) throws IllegalStateException, IllegalArgumentException{
+  public void nextChannel(int amount) throws IllegalStateException, IllegalArgumentException {
     if (!isTvOn) {
       throw new IllegalStateException("The TV must be turned on first");
     }
-    if (currentChannel + amount <= 0 || currentChannel + amount > numberOfChannels){
+    if (currentChannel + amount <= 0 || currentChannel + amount > numberOfChannels) {
       throw new IllegalArgumentException("Invalid channel when skipping " + amount + " channels.");
     }
     currentChannel = currentChannel + amount;

@@ -6,13 +6,18 @@ import no.gruppe15.message.Message;
 import no.gruppe15.message.OkMessage;
 import no.gruppe15.ui.SmartTVController;
 
-public class IgnoreCommand extends Command{
-    @Override
-    public Message execute(TvLogic logic, SmartTVController controller) {
-        return new ErrorMessage("Invalid command");
-    }
-    public String getMessage(){
-        return "";
-        //TODO: DOUBLE CHECK THIS LATER ON
-    }
+/**
+ * Command that is sent when user imput is to be ignored.
+ * Returns "invalid command"
+ */
+public class IgnoreCommand extends Command {
+  @Override
+  public Message execute(TvLogic logic, SmartTVController controller) {
+    return new ErrorMessage("Invalid command");
+  }
+
+  public String getMessage() {
+    return "";
+    //TODO: DOUBLE CHECK THIS LATER ON
+  }
 }

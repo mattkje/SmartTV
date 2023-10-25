@@ -46,7 +46,7 @@ public class RemoteControl {
 
         socketWriter.println(input);
 
-        if (input.equals("exit")){
+        if (input.equals("exit")) {
           exit = true;
         }
 
