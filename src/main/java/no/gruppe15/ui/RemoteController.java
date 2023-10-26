@@ -2,10 +2,8 @@ package no.gruppe15.ui;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,14 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import no.gruppe15.RemoteControl;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -29,6 +24,9 @@ import static no.gruppe15.TvServer.PORT_NUMBER;
 
 /**
  * Controller class for the RemoteApp class.
+ *
+ * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
+ * @version 23.10.2023
  */
 public class RemoteController implements Initializable {
 
@@ -38,22 +36,32 @@ public class RemoteController implements Initializable {
 
   @FXML
   private TextField textField;
-
   @FXML
   private Label connection;
   private Timeline timer;
 
+  /**
+   * This method sets the printWriter and sockerReader
+   *
+   * @param printWriter
+   * @param socketReader
+   */
   public void setPrintWriter(PrintWriter printWriter, BufferedReader socketReader) {
     this.printWriter = printWriter;
     this.socketReader = socketReader;
   }
 
 
+  /**
+   * This method handles the number buttons on the remote. It reads the number text,
+   * and parses it in the textfield before sending it in 1 second intervals.
+   *
+   * @param event
+   */
   @FXML
   private void onNumberButtonClicked(ActionEvent event) {
     Button button = (Button) event.getSource();
     String buttonText = button.getText();
-
 
     textField.appendText(buttonText);
 
@@ -62,7 +70,6 @@ public class RemoteController implements Initializable {
       timer.stop();
     }
 
-    // Create a new timer with a 1-second delay
     timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
 
       String text = textField.getText();
@@ -72,6 +79,12 @@ public class RemoteController implements Initializable {
     timer.playFromStart();
   }
 
+  /**
+   * This method should provide feedback from the remote app
+   * in the terminal.
+   *
+   * @param command Current command.
+   */
   private void sendCommandToServer(String command) {
     if (printWriter != null) {
       printWriter.println(command);
@@ -91,39 +104,67 @@ public class RemoteController implements Initializable {
     }
   }
 
+  /**
+   * This method handles the turn on command.
+   */
   public void turnOn() {
     sendCommandToServer("1");
   }
 
+  /**
+   * This method handles the turn off command.
+   */
   public void turnOff() {
     sendCommandToServer("0");
   }
 
+  /**
+   * This method handles the channel down command.
+   */
   public void channelDown() {
     sendCommandToServer("c2");
   }
 
+  /**
+   * This method handles the channel up command.
+   */
   public void channelUp() {
     sendCommandToServer("c4");
   }
+
+  /**
+   * This method handles the mute command.
+   */
   public void mute() {
-    sendCommandToServer("exit");
+    sendCommandToServer("m");
   }
 
+  /**
+   * This method handles the number of channels command.
+   */
   public void getNumberOfChannels() {
     sendCommandToServer("n");
   }
 
+  /**
+   * The initialize method creates a timeline that checks if the remote has
+   * a connection to the smart tv, and should provide feedback if connection is lost.
+   *
+   * @param url
+   * @param resourceBundle
+   */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    // Create a Timeline that updates the connection status every N milliseconds
     Timeline timeline = new Timeline(new KeyFrame(
-            Duration.millis(1000), // Update every 1 second, change this as needed
+            Duration.millis(1000),
             event -> updateConnectionStatus()));
-    timeline.setCycleCount(Timeline.INDEFINITE); // Run indefinitely
+    timeline.setCycleCount(Timeline.INDEFINITE);
     timeline.play();
   }
 
+  /**
+   * This method checks whether the remote is connected to the smart tv.
+   */
   private void updateConnectionStatus() {
     if (printWriter != null) {
       connection.setText("Connected");
@@ -135,6 +176,9 @@ public class RemoteController implements Initializable {
 
   }
 
+  /**
+   * This method should create a new socket to reconnect the remote
+   */
   public void reConnect() {
     Platform.runLater(() -> {
       connection.setTextFill(Color.YELLOW);
