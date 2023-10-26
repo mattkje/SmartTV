@@ -10,6 +10,8 @@ The following messages could be sent from point to server:
 * "0" turn off the TV
 * "n" get the number of channels
 * "c###" set current channel, where ### is the desired channel number ("c1", "c2", "c3"... "c255")
+* "+" Go up one channel
+* "-" Go down one channel
 
 Server can respond with:
 * "o" - performed the necessary action

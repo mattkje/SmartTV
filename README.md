@@ -20,6 +20,8 @@ To operate the client console you can type any of these commands:
 0 - Turn the TV off
 n - See the available channels
 c - change channel. "c2" changes it to channel 2, | ex C3,C4 etc...
++ - goes up one channel
+- - goes down one channel
 ```
 ## The Assignment
 This socket programming exercise consists of three parts. Your group needs to finish all three parts until the deadline. 
