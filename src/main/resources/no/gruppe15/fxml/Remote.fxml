@@ -137,7 +137,7 @@
                   <DropShadow height="10.5" radius="4.75" width="10.5" />
                </effect>
             </Button>
-            <Button mnemonicParsing="false" onAction="#reConnect" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="M" GridPane.columnIndex="2">
+            <Button mnemonicParsing="false" onAction="#exit" prefWidth="45.0" style="-fx-background-radius: 10; -fx-background-color: #333; -fx-text-fill: #ccc;" text="P" GridPane.columnIndex="2">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>

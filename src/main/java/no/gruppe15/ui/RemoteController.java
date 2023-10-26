@@ -133,10 +133,10 @@ public class RemoteController implements Initializable {
   }
 
   /**
-   * This method handles the mute command.
+   * This method handles the exit command.
    */
-  public void mute() {
-    sendCommandToServer("m");
+  public void exit() {
+    sendCommandToServer("exit");
   }
 
   /**
