@@ -24,7 +24,7 @@ public class RemoteApp extends Application {
 
 
     loader = new FXMLLoader(this.getClass().getResource("/no/gruppe15/fxml/Remote.fxml"));
-    controller.setPrintWriter(remoteControl.getSocketWriter());
+    controller.setPrintWriter(remoteControl.getSocketWriter(), remoteControl.getSocketReader());
     loader.setController(controller);
     Scene scene = new Scene(loader.load());
     primaryStage.setResizable(false);

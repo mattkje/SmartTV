@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +24,8 @@ public class RemoteController implements Initializable {
 
   private PrintWriter printWriter;
 
+  private BufferedReader socketReader;
+
   @FXML
   private TextField textField;
 
@@ -29,8 +33,9 @@ public class RemoteController implements Initializable {
   private Label connection;
   private Timeline timer;
 
-  public void setPrintWriter(PrintWriter printWriter) {
+  public void setPrintWriter(PrintWriter printWriter, BufferedReader socketReader) {
     this.printWriter = printWriter;
+    this.socketReader = socketReader;
   }
 
 
@@ -60,6 +65,15 @@ public class RemoteController implements Initializable {
   private void sendCommandToServer(String command) {
     if (printWriter != null) {
       printWriter.println(command);
+      String serverResponse = null;
+      try {
+        serverResponse = socketReader.readLine();
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+      System.out.println(command);
+      System.out.println("Server Response: " + serverResponse);
+      System.out.print("Enter a message: ");
     } else {
       System.err.println("PrintWriter is not set.");
     }

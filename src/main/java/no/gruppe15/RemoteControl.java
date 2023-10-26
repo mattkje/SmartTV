@@ -68,4 +68,8 @@ public class RemoteControl {
   public PrintWriter getSocketWriter(){
     return this.socketWriter;
   }
+
+  public BufferedReader getSocketReader() {
+    return this.socketReader;
+  }
 }
