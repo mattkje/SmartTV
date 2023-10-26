@@ -122,14 +122,14 @@ public class RemoteController implements Initializable {
    * This method handles the channel down command.
    */
   public void channelDown() {
-    sendCommandToServer("c2");
+    sendCommandToServer("-");
   }
 
   /**
    * This method handles the channel up command.
    */
   public void channelUp() {
-    sendCommandToServer("c4");
+    sendCommandToServer("+");
   }
 
   /**

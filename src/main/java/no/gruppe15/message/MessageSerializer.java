@@ -2,6 +2,8 @@ package no.gruppe15.message;
 
 
 import no.gruppe15.command.ChannelCountCommand;
+import no.gruppe15.command.ChannelDownCommand;
+import no.gruppe15.command.ChannelUpCommand;
 import no.gruppe15.command.IgnoreCommand;
 import no.gruppe15.command.SetChannelCommand;
 import no.gruppe15.command.TurnOffCommand;
@@ -28,6 +30,8 @@ public class MessageSerializer {
       case 'c' -> new SetChannelCommand(s);
       case '1' -> new TurnOnCommand();
       case '0' -> new TurnOffCommand();
+      case '+' -> new ChannelUpCommand();
+      case '-' -> new ChannelDownCommand();
       default -> new IgnoreCommand(); //TODO Håkon fix
     };
     return m;
