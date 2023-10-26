@@ -151,6 +151,7 @@ public class RemoteController implements Initializable {
         boolean exit = false;
 
         while (!exit) {
+          System.out.println("");
           System.out.print("Enter a message: ");
           String input = userInputScanner.nextLine();
 
