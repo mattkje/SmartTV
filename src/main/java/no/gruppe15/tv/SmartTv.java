@@ -17,7 +17,7 @@ public class SmartTv {
   public static void main(String[] args) {
     SmartTVController controller = new SmartTVController();
     TvLogic logic = new TvLogic(100);
-    TvServer server = new TvServer(logic, controller);
+    TvServer server = new TvServer(logic);
     Thread serverThread = new Thread(server::startServer);
     serverThread.start();
     SmartTvApp.startApp(controller);

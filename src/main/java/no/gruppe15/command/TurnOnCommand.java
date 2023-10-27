@@ -12,20 +12,15 @@ import no.gruppe15.tv.gui.SmartTVController;
  */
 public class TurnOnCommand extends Command {
   @Override
-  public Message execute(TvLogic logic, SmartTVController controller) {
+  public Message execute(TvLogic logic) {
     try {
       logic.turnOn();
-      controller.setChannelMedia("1");
+      //controller.setChannelMedia("1");
       return new OkMessage("TV turned on successfully");
     } catch (IllegalStateException e) {
       return new ErrorMessage("The TV is already on");
     }
 
-  }
-
-  @Override
-  public String getMessage() {
-    return "This command turns the TV on";
   }
 
 }

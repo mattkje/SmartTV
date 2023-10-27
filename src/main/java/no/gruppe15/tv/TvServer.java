@@ -1,15 +1,11 @@
 package no.gruppe15.tv;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import no.gruppe15.command.Command;
+import java.util.ArrayList;
+import java.util.List;
 import no.gruppe15.message.Message;
-import no.gruppe15.message.MessageSerializer;
-import no.gruppe15.tv.gui.SmartTVController;
 
 /**
  * Handles the TCP server socket(s).
@@ -18,15 +14,11 @@ public class TvServer {
   public static final int PORT_NUMBER = 10025;
   private final TvLogic logic;
 
-  private final SmartTVController controller;
-
   boolean isTcpServerRunning;
-  private BufferedReader socketReader;
-  private PrintWriter socketWriter;
+  private final List<ClientHandler> connectedClients = new ArrayList<>();
 
-  public TvServer(TvLogic logic, SmartTVController controller) {
+  public TvServer(TvLogic logic) {
     this.logic = logic;
-    this.controller = controller;
   }
 
   /**
@@ -38,10 +30,10 @@ public class TvServer {
     if (listeningSocket != null) {
       isTcpServerRunning = true;
       while (isTcpServerRunning) {
-        Socket clientSocket = acceptNextClientConnection(listeningSocket);
-        if (clientSocket != null) {
-          System.out.println("New client connected from " + clientSocket.getRemoteSocketAddress());
-          handleClient();
+        ClientHandler clientHandler = acceptNextClientConnection(listeningSocket);
+        if (clientHandler != null) {
+          connectedClients.add(clientHandler);
+          clientHandler.start();
         }
       }
     }
@@ -57,59 +49,39 @@ public class TvServer {
     return listeningSocket;
   }
 
-  private Socket acceptNextClientConnection(ServerSocket listeningSocket) {
-    Socket clientSocket = null;
+  private ClientHandler acceptNextClientConnection(ServerSocket listeningSocket) {
+    ClientHandler clientHandler = null;
     try {
-      clientSocket = listeningSocket.accept();
-      socketReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-      socketWriter = new PrintWriter(clientSocket.getOutputStream(), true);
-
+      Socket clientSocket = listeningSocket.accept();
+      System.out.println("New client connected from " + clientSocket.getRemoteSocketAddress());
+      clientHandler = new ClientHandler(clientSocket, this);
     } catch (IOException e) {
       System.err.println("Could not accept client connection: " + e.getMessage());
     }
-    return clientSocket;
-  }
-
-  private void handleClient() {
-    Message response;
-    do {
-      Command clientCommand = readClientRequest();
-      System.out.println("Received from client: " + clientCommand);
-      response = clientCommand.execute(logic, controller);
-      if (response != null) {
-        sendResponseToClient(response);
-      }
-    } while (response != null);
+    return clientHandler;
   }
 
   /**
-   * Read one message from the TCP socket - from the client.
+   * Get the associated TV logic.
    *
-   * @return The received client message, or null on error
+   * @return The TV logic
    */
-  private Command readClientRequest() {
-    Message clientCommand = null;
-    try {
-      String rawClientRequest = socketReader.readLine();
+  public TvLogic getTvLogic() {
+    return logic;
+  }
 
-      clientCommand = MessageSerializer.fromString(rawClientRequest);
-      if (!(clientCommand instanceof Command)) {
-        System.err.println("Wrong message from the client: " + clientCommand);
-        clientCommand = null;
-      }
-    } catch (IOException e) {
-      System.err.println("Could not receive client request: " + e.getMessage());
+  /**
+   * Send a message to all currently connected clients.
+   *
+   * @param message The message to send
+   */
+  public void sendResponseToAllClients(Message message) {
+    for (ClientHandler clientHandler : connectedClients) {
+      clientHandler.sendToClient(message);
     }
-    return (Command) clientCommand;
   }
 
-  /**
-   * Send a response from the server to the client, over the TCP socket.
-   *
-   * @param response The response to send to the client, NOT including the newline
-   */
-  private void sendResponseToClient(Message response) {
-    socketWriter.println(MessageSerializer.toString(response));
+  public void clientDisconnected(ClientHandler clientHandler) {
+    connectedClients.remove(clientHandler);
   }
-
 }

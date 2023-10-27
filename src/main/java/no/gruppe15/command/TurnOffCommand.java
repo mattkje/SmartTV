@@ -12,19 +12,14 @@ import no.gruppe15.tv.gui.SmartTVController;
  */
 public class TurnOffCommand extends Command {
   @Override
-  public Message execute(TvLogic logic, SmartTVController controller) {
+  public Message execute(TvLogic logic) {
     try {
       logic.turnOff();
-      controller.setChannelMedia("0");
+      //controller.setChannelMedia("0");
       return new OkMessage("TV turned off successfully");
     } catch (IllegalStateException e) {
       return new ErrorMessage("The TV must be turned on first");
     }
 
-  }
-
-  @Override
-  public String getMessage() {
-    return "This command turns off the TV";
   }
 }

@@ -1,18 +1,23 @@
 package no.gruppe15.message;
 
 
-import no.gruppe15.command.ChannelCountCommand;
-import no.gruppe15.command.ChannelDownCommand;
-import no.gruppe15.command.ChannelUpCommand;
-import no.gruppe15.command.IgnoreCommand;
-import no.gruppe15.command.SetChannelCommand;
-import no.gruppe15.command.TurnOffCommand;
-import no.gruppe15.command.TurnOnCommand;
+import no.gruppe15.command.*;
 
 /**
  * Serializes messages to protocol-defined strings and vice versa.
  */
 public class MessageSerializer {
+
+  public static final String CHANNEL_COUNT_COMMAND = "c";
+  public static final String TURN_ON_COMMAND = "1";
+  public static final String TURN_OFF_COMMAND = "0";
+  public static final String GET_CHANNEL_COMMAND = "g";
+  public static final String SET_CHANNEL_COMMAND = "s";
+  public static final String CHANNEL_COUNT_MESSAGE = "N";
+  public static final String ERROR_MESSAGE = "e";
+  public static final String CURRENT_CHANNEL_MESSAGE = "C";
+  public static final String TV_STATE_ON_MESSAGE = "TVON";
+  public static final String TV_STATE_OFF_MESSAGE = "TVoff";
   /**
    * Create message from a string, according to the communication protocol.
    *
@@ -37,15 +42,27 @@ public class MessageSerializer {
     return m;
   }
 
-  /**
-   * returns the message received as a string.
-   *
-   * @param response Message object to be converted
-   * @return converted Message object
-   */
-  public static String toString(Message response) {
-
-    return response.getMessage();
-
+  public static String toString(Message m) {
+    String s = null;
+    if (m instanceof TurnOffCommand) {
+      s = TURN_OFF_COMMAND;
+    } else if (m instanceof TurnOnCommand) {
+      s = TURN_ON_COMMAND;
+    } else if (m instanceof ChannelCountCommand) {
+      s = CHANNEL_COUNT_COMMAND;
+    } else if (m instanceof GetChannelCommand) {
+      s = GET_CHANNEL_COMMAND;
+    } else if (m instanceof ChannelCountMessage channelCountMessage) {
+      s = CHANNEL_COUNT_MESSAGE + channelCountMessage.getChannelCount();
+    } else if (m instanceof CurrentChannelMessage currentChannelMessage) {
+      s = CURRENT_CHANNEL_MESSAGE + currentChannelMessage.getChannel();
+    } else if (m instanceof ErrorMessage errorMessage) {
+      s = ERROR_MESSAGE + errorMessage.getMessage();
+    } else if (m instanceof TvStateMessage tvStateMessage) {
+      s = tvStateMessage.isOn() ? TV_STATE_ON_MESSAGE : TV_STATE_OFF_MESSAGE;
+    } else if (m instanceof SetChannelCommand setChannelCommand) {
+      s = SET_CHANNEL_COMMAND + setChannelCommand.getChannel();
+    }
+    return s;
   }
 }

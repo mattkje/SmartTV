@@ -3,16 +3,16 @@ package no.gruppe15.message;
 /**
  * A message saying "all OK, the command was executed successfully".
  */
-public class OkMessage extends Message {
+public class OkMessage implements Message {
 
-  private final String feedback;
+  private final String message;
 
-  public OkMessage(String feedback) {
-    this.feedback = feedback;
+  public OkMessage(String message) {
+    this.message = message;
   }
 
-  @Override
   public String getMessage() {
-    return feedback;
+    return message;
   }
+
 }
