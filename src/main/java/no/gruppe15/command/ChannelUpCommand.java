@@ -23,7 +23,6 @@ public class ChannelUpCommand extends Command {
 
   @Override
   public String getMessage() {
-    return "";
-    //TODO: IMPLEMENT THIS
+    return "This command changes the channel by 1";
   }
 }

@@ -23,8 +23,8 @@ public class TurnOffCommand extends Command {
 
   }
 
+  @Override
   public String getMessage() {
     return "This command turns off the TV";
-    //TODO: DOUBLECHECK THIS LATER ON
   }
 }

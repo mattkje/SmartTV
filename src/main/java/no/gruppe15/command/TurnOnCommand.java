@@ -23,9 +23,9 @@ public class TurnOnCommand extends Command {
 
   }
 
+  @Override
   public String getMessage() {
     return "This command turns the TV on";
-    //TODO: DOUBLE CHECK THIS LATER ON
   }
 
 }

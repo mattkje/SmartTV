@@ -23,8 +23,8 @@ public class ChannelCountCommand extends Command {
     return response;
   }
 
+  @Override
   public String getMessage() {
-    return "";
-    //TODO: IMPLEMENT THIS
+    return "This command gets the amount of channels of a given SmartTV";
   }
 }

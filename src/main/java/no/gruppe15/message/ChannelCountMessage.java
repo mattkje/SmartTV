@@ -10,10 +10,8 @@ public class ChannelCountMessage extends Message {
     this.channelCount = channelCount;
   }
 
-  public int getChannelCount() {
-    return channelCount;
-  }
 
+  @Override
   public String getMessage() {
     return "Number of channels: " + this.channelCount;
   }

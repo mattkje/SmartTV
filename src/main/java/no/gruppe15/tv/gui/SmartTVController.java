@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
  * This class represents the controller for the SmartTV user interface.
  * Use setChannelMedia(String channelNumber) to set graphical channel
  * <p>
- * TODO: Connect this to the TvLogic class
  *
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
  * @version 23.10.2023
@@ -151,9 +150,7 @@ public class SmartTVController implements Initializable {
     //mediaPlayer.setMute(true);
 
     PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
-    pause.setOnFinished(event -> {
-      mediaPlayer.play();
-    });
+    pause.setOnFinished(event -> mediaPlayer.play());
     pause.play();
   }
 

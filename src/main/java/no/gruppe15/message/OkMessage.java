@@ -5,12 +5,13 @@ package no.gruppe15.message;
  */
 public class OkMessage extends Message {
 
-  private String feedback;
+  private final String feedback;
 
   public OkMessage(String feedback) {
     this.feedback = feedback;
   }
 
+  @Override
   public String getMessage() {
     return feedback;
   }

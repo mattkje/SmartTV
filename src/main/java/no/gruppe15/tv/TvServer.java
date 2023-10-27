@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import no.gruppe15.command.Command;
-import no.gruppe15.message.ErrorMessage;
 import no.gruppe15.message.Message;
 import no.gruppe15.message.MessageSerializer;
 import no.gruppe15.tv.gui.SmartTVController;
@@ -17,15 +16,6 @@ import no.gruppe15.tv.gui.SmartTVController;
  */
 public class TvServer {
   public static final int PORT_NUMBER = 10025;
-  public static final String CHANNEL_COUNT_COMMAND = "c";
-  public static final String TURN_ON_COMMAND = "1";
-  public static final String TURN_OFF_COMMAND = "0";
-  public static final String GET_CHANNEL_COMMAND = "g";
-  public static final String SET_CHANNEL_COMMAND = "s";
-  public static final String OK_RESPONSE = "o";
-  private static final String CHANNEL_COUNT_MESSAGE = "c";
-  private static final String ERROR_MESSAGE = "e";
-  private static final String CURRENT_CHANNEL_MESSAGE = "C";
   private final TvLogic logic;
 
   private final SmartTVController controller;

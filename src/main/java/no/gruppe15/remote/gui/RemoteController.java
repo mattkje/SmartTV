@@ -207,7 +207,6 @@ public class RemoteController implements Initializable {
             exit = true;
           }
 
-          // TODO: ADD exception handling if there is a wrong command
           String serverResponse = socketReader.readLine();
           System.out.println("Server Response: " + serverResponse);
         }

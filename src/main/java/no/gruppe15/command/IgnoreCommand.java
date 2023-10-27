@@ -15,8 +15,8 @@ public class IgnoreCommand extends Command {
     return new ErrorMessage("Invalid command");
   }
 
+  @Override
   public String getMessage() {
-    return "";
-    //TODO: DOUBLE CHECK THIS LATER ON
+    return "This command send a invalid command message to the user";
   }
 }

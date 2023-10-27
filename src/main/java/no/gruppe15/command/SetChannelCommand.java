@@ -33,7 +33,7 @@ public class SetChannelCommand extends Command {
 
   @Override
   public String getMessage() {
-    return null;
+    return "This command sets the channel to a given channel based on user input";
   }
 
   /**

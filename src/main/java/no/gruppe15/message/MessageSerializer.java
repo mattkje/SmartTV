@@ -32,7 +32,7 @@ public class MessageSerializer {
       case '0' -> new TurnOffCommand();
       case '+' -> new ChannelUpCommand();
       case '-' -> new ChannelDownCommand();
-      default -> new IgnoreCommand(); //TODO Håkon fix
+      default -> new IgnoreCommand();
     };
     return m;
   }
