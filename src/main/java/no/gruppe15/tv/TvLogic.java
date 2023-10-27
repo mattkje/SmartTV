@@ -1,4 +1,4 @@
-package no.gruppe15;
+package no.gruppe15.tv;
 
 /**
  * Smart TV - the logic.

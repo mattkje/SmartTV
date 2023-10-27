@@ -1,4 +1,4 @@
-package no.gruppe15.ui;
+package no.gruppe15.tv.gui;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;

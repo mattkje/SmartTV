@@ -1,4 +1,4 @@
-package no.gruppe15;
+package no.gruppe15.tv;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import no.gruppe15.command.Command;
 import no.gruppe15.message.ErrorMessage;
 import no.gruppe15.message.Message;
 import no.gruppe15.message.MessageSerializer;
-import no.gruppe15.ui.SmartTVController;
+import no.gruppe15.tv.gui.SmartTVController;
 
 /**
  * Handles the TCP server socket(s).
@@ -51,7 +51,7 @@ public class TvServer {
         Socket clientSocket = acceptNextClientConnection(listeningSocket);
         if (clientSocket != null) {
           System.out.println("New client connected from " + clientSocket.getRemoteSocketAddress());
-          handleClient(clientSocket);
+          handleClient();
         }
       }
     }
@@ -80,7 +80,7 @@ public class TvServer {
     return clientSocket;
   }
 
-  private void handleClient(Socket clientSocket) {
+  private void handleClient() {
     Message response;
     do {
       Command clientCommand = readClientRequest();

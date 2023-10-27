@@ -1,4 +1,4 @@
-package no.gruppe15.ui;
+package no.gruppe15.remote.gui;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-import static no.gruppe15.TvServer.PORT_NUMBER;
+import static no.gruppe15.tv.TvServer.PORT_NUMBER;
 
 /**
  * Controller class for the RemoteApp class.
@@ -178,6 +178,8 @@ public class RemoteController implements Initializable {
 
   /**
    * This method should create a new socket to reconnect the remote
+   *
+   * //TODO Shorten this (split or get from RemoteControl class?)
    */
   public void reConnect() {
     Platform.runLater(() -> {
