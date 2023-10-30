@@ -1,11 +1,7 @@
 package no.gruppe15.remote.gui;
 
-import static no.gruppe15.tv.TvServer.PORT_NUMBER;
-import static no.gruppe15.tv.TvServer.SERVER_HOST;
-
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
@@ -31,8 +27,6 @@ import no.gruppe15.command.TurnOffCommand;
 import no.gruppe15.command.TurnOnCommand;
 import no.gruppe15.remote.RemoteLogic;
 import no.gruppe15.tv.ClientHandler;
-import no.gruppe15.tv.TvLogic;
-import no.gruppe15.tv.TvServer;
 
 /**
  * Controller class for the RemoteApp class.
@@ -163,9 +157,10 @@ public class RemoteController implements Initializable {
    * This method checks whether the remote is connected to the smart tv.
    */
   private void updateConnectionStatus() {
-    if (printWriter != null) {
+    if (printWriter != null || logic.getSocketWriter() != null) {
       connection.setText("Connected");
       connection.setTextFill(Color.LIME);
+
     } else {
       connection.setText("Not connected");
       connection.setTextFill(Color.RED);
