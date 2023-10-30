@@ -15,21 +15,22 @@ import javafx.stage.Stage;
  */
 public class SmartTvApp extends Application {
 
-  private static SmartTVController controller;
+  private static SmartTvController controller;
 
   /**
-   * Start app method
+   * Start app method.
    *
    * @param controller controller for the SmartTV
    */
-  public static void startApp(SmartTVController controller) {
+  public static void startApp(SmartTvController controller) {
     SmartTvApp.controller = controller;
     launch();
   }
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/no/gruppe15/fxml/SmartTV.fxml"));
+    FXMLLoader loader = new FXMLLoader(this.getClass().getResource(
+        "/no/gruppe15/fxml/SmartTV.fxml"));
     loader.setController(controller);
     Scene scene = new Scene(loader.load());
     primaryStage.setResizable(false);

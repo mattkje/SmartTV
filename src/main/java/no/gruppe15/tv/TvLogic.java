@@ -1,6 +1,6 @@
 package no.gruppe15.tv;
 
-import no.gruppe15.tv.gui.SmartTVController;
+import no.gruppe15.tv.gui.SmartTvController;
 
 /**
  * This class represents the Smart TV logic.
@@ -12,10 +12,10 @@ public class TvLogic {
   private boolean isTvOn;
   private final int numberOfChannels;
   private int currentChannel;
-  private SmartTVController controller;
+  private SmartTvController controller;
 
   /**
-   * Create a new Smart TV.
+   * Creates an instance of TvLogic.
    *
    * @param numberOfChannels The total number of channels the TV has
    */
@@ -30,7 +30,7 @@ public class TvLogic {
   }
 
   /**
-   * Turn ON the TV.
+   * This method should set the isTvOn to true.
    */
   public void turnOn() {
     if (isTvOn) {
@@ -41,7 +41,7 @@ public class TvLogic {
   }
 
   /**
-   * Turn OFF the TV.
+   * This method should set the isTvOn to false.
    */
   public void turnOff() {
     if (!isTvOn) {
@@ -110,7 +110,7 @@ public class TvLogic {
    *
    * @param controller The app controller.
    */
-  public void setController(SmartTVController controller){
+  public void setController(SmartTvController controller) {
     this.controller = controller;
   }
 
@@ -119,7 +119,18 @@ public class TvLogic {
    *
    * @param command Current command.
    */
-  public void handleController(int command){
+  public void handleController(int command) {
     controller.setChannelMedia(command + "");
+  }
+
+  /**
+   * This method checks whether the tv is on, before calling toggleMute method
+   * from controller class.
+   */
+  public void toggleMute() {
+    if (!isTvOn) {
+      throw new IllegalStateException("The TV must be turned on first");
+    }
+    controller.toggleMute();
   }
 }

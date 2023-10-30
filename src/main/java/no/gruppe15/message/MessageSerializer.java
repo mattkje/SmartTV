@@ -10,12 +10,15 @@ import no.gruppe15.command.*;
  */
 public class MessageSerializer {
 
-  public static final String CHANNEL_COUNT_COMMAND = "c";
+  public static final String CHANNEL_COUNT_COMMAND = "n";
+  public static final String CHANNEL_UP_COMMAND = "+";
+  public static final String CHANNEL_DOWN_COMMAND = "-";
   public static final String TURN_ON_COMMAND = "1";
   public static final String TURN_OFF_COMMAND = "0";
   public static final String GET_CHANNEL_COMMAND = "g";
   public static final String SET_CHANNEL_COMMAND = "c";
-  public static final String CHANNEL_COUNT_MESSAGE = "n";
+  public static final String TOGGLE_MUTE_COMMAND = "m";
+  public static final String CHANNEL_COUNT_MESSAGE = "N";
   public static final String ERROR_MESSAGE = "e";
   public static final String CURRENT_CHANNEL_MESSAGE = "s";
   public static final String TV_STATE_ON_MESSAGE = "TVON";
@@ -28,11 +31,12 @@ public class MessageSerializer {
    */
   public static Message fromString(String s) {
     Message m;
-    if (s.isEmpty()) {
+    if (s.isEmpty() || s.equals("null")) {
       return new IgnoreCommand();
     }
 
     char firstS = s.charAt(0);
+
     //TODO: Find out why s is null
     m = switch (firstS) {
       case 'n' -> new ChannelCountCommand();
@@ -41,6 +45,7 @@ public class MessageSerializer {
       case '0' -> new TurnOffCommand();
       case '+' -> new ChannelUpCommand();
       case '-' -> new ChannelDownCommand();
+      case 'm' -> new ToggleMuteCommand();
       default -> new IgnoreCommand();
     };
     return m;
@@ -54,8 +59,14 @@ public class MessageSerializer {
       s = TURN_ON_COMMAND;
     } else if (m instanceof ChannelCountCommand) {
       s = CHANNEL_COUNT_COMMAND;
+    } else if (m instanceof ChannelUpCommand) {
+      s = CHANNEL_UP_COMMAND;
+    } else if (m instanceof ChannelDownCommand) {
+      s = CHANNEL_DOWN_COMMAND;
     } else if (m instanceof GetChannelCommand) {
       s = GET_CHANNEL_COMMAND;
+    } else if (m instanceof ToggleMuteCommand) {
+      s = TOGGLE_MUTE_COMMAND;
     } else if (m instanceof ChannelCountMessage channelCountMessage) {
       s = CHANNEL_COUNT_MESSAGE + channelCountMessage.getChannelCount();
     } else if (m instanceof CurrentChannelMessage currentChannelMessage) {

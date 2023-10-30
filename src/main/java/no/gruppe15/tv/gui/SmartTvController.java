@@ -1,5 +1,8 @@
 package no.gruppe15.tv.gui;
 
+import java.net.URL;
+import java.util.Objects;
+import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -13,9 +16,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
 
 /**
  * This class represents the controller for the SmartTV user interface.
@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
  * @version 23.10.2023
  */
-public class SmartTVController implements Initializable {
+public class SmartTvController implements Initializable {
   @FXML
   private MediaView mediaView;
   @FXML
@@ -59,12 +59,12 @@ public class SmartTVController implements Initializable {
       return;
     }
     if (channel.equals("0")) {
-        Platform.runLater(() -> {
-            mediaView.setVisible(false);
-            status.setTextFill(Color.RED);
-            channelNumber.setText("OFF");
-            channelLabel.setText("");
-        });
+      Platform.runLater(() -> {
+        mediaView.setVisible(false);
+        status.setTextFill(Color.RED);
+        channelNumber.setText("OFF");
+        channelLabel.setText("");
+      });
 
       return;
     }
@@ -121,7 +121,7 @@ public class SmartTVController implements Initializable {
   }
 
   /**
-   * This method returns a new mediaPlayer with a given media.
+   * * This method returns a new mediaPlayer with a given media.
    *
    * @param media Current media.
    * @return MediaPlayer with a given media.
@@ -172,7 +172,7 @@ public class SmartTVController implements Initializable {
    *
    * @param channelNumber Current available channels.
    */
-  public void displayNumberOfChannels(int channelNumber){
+  public void displayNumberOfChannels(int channelNumber) {
     Platform.runLater(() -> {
       channelDisplay(3);
       signal.setText(" " + channelNumber + " Channels available ");
@@ -183,8 +183,10 @@ public class SmartTVController implements Initializable {
   /**
    * Initializes the controller when the associated FXML file is loaded.
    *
-   * @param url            The location used to resolve relative paths for the root object or null if the location is not known.
-   * @param resourceBundle The resource bundle to be used, or null if the root object was not located by a named location.
+   * @param url            The location used to resolve relative paths for the root
+   *                       object or null if the location is not known.
+   * @param resourceBundle The resource bundle to be used, or null if the root object
+   *                       was not located by a named location.
    */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -192,5 +194,24 @@ public class SmartTVController implements Initializable {
     status.setTextFill(Color.RED);
     channelNumber.setText("OFF");
     channelLabel.setText("");
+  }
+
+  /**
+   * Toggles the mute status of the media player and updates the user interface accordingly.
+   */
+  public void toggleMute() {
+    String text;
+    if (mediaPlayer.isMute()) {
+      mediaPlayer.setMute(false);
+      text = " Sound on ";
+    } else {
+      mediaPlayer.setMute(true);
+      text = " Muted ";
+    }
+    Platform.runLater(() -> {
+      channelDisplay(3);
+      signal.setText(text);
+      channelNumberBox.setVisible(true);
+    });
   }
 }

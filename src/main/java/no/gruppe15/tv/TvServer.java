@@ -8,16 +8,21 @@ import java.util.List;
 import no.gruppe15.message.Message;
 
 /**
- * Handles the TCP server socket(s).
+ * This class is responsible for managing the TCP server socket(s) for the TV application.
  *
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
  * @version 30.10.2023
  */
 public class TvServer {
+
   public static final int PORT_NUMBER = 10025;
+
+  public static final String SERVER_HOST = "localhost";
+
   private final TvLogic logic;
 
   boolean isTcpServerRunning;
+
   private final List<ClientHandler> connectedClients = new ArrayList<>();
 
   public TvServer(TvLogic logic) {
@@ -42,26 +47,37 @@ public class TvServer {
     }
   }
 
+  /**
+   * Opens a server socket to listen for incoming client connections on the specified port.
+   *
+   * @return The opened ServerSocket if successful, or null on failure.
+   */
   private ServerSocket openListeningSocket() {
-    ServerSocket listeningSocket = null;
     try {
-      listeningSocket = new ServerSocket(PORT_NUMBER);
+      return new ServerSocket(PORT_NUMBER);
     } catch (IOException e) {
       System.err.println("Could not open server socket: " + e.getMessage());
+      return null;
     }
-    return listeningSocket;
   }
 
+
+  /**
+   * Accepts the next client connection from the given ServerSocket and
+   * creates a ClientHandler for it.
+   *
+   * @param listeningSocket The ServerSocket to accept the connection from.
+   * @return The ClientHandler for the new client if successful, or null on failure.
+   */
   private ClientHandler acceptNextClientConnection(ServerSocket listeningSocket) {
-    ClientHandler clientHandler = null;
     try {
       Socket clientSocket = listeningSocket.accept();
       System.out.println("New client connected from " + clientSocket.getRemoteSocketAddress());
-      clientHandler = new ClientHandler(clientSocket, this);
+      return new ClientHandler(clientSocket, this);
     } catch (IOException e) {
       System.err.println("Could not accept client connection: " + e.getMessage());
+      return null;
     }
-    return clientHandler;
   }
 
   /**
@@ -88,3 +104,4 @@ public class TvServer {
     connectedClients.remove(clientHandler);
   }
 }
+

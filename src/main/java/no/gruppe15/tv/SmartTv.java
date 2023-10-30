@@ -1,7 +1,7 @@
 package no.gruppe15.tv;
 
-import no.gruppe15.tv.gui.SmartTVController;
 import no.gruppe15.tv.gui.SmartTvApp;
+import no.gruppe15.tv.gui.SmartTvController;
 
 /**
  * A starting point for the SmartTV application.
@@ -17,7 +17,7 @@ public class SmartTv {
    * @param args Command line arguments, not used
    */
   public static void main(String[] args) {
-    SmartTVController controller = new SmartTVController();
+    SmartTvController controller = new SmartTvController();
     TvLogic logic = new TvLogic(100);
     logic.setController(controller);
     TvServer server = new TvServer(logic);

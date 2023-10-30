@@ -1,6 +1,17 @@
 package no.gruppe15.remote.gui;
 
+import static no.gruppe15.tv.TvServer.PORT_NUMBER;
+import static no.gruppe15.tv.TvServer.SERVER_HOST;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -11,23 +22,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import no.gruppe15.command.*;
-import no.gruppe15.message.Message;
-import no.gruppe15.message.MessageSerializer;
+import no.gruppe15.command.ChannelCountCommand;
+import no.gruppe15.command.ChannelDownCommand;
+import no.gruppe15.command.ChannelUpCommand;
+import no.gruppe15.command.SetChannelCommand;
+import no.gruppe15.command.ToggleMuteCommand;
+import no.gruppe15.command.TurnOffCommand;
+import no.gruppe15.command.TurnOnCommand;
+import no.gruppe15.remote.RemoteLogic;
 import no.gruppe15.tv.ClientHandler;
 import no.gruppe15.tv.TvLogic;
 import no.gruppe15.tv.TvServer;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-
-import static no.gruppe15.tv.TvServer.PORT_NUMBER;
 
 /**
  * Controller class for the RemoteApp class.
@@ -41,17 +46,24 @@ public class RemoteController implements Initializable {
 
   private BufferedReader socketReader;
 
+  private ClientHandler remoteClient;
+
+  private Timeline timeline;
+
+  private RemoteLogic logic;
+
   @FXML
   private TextField textField;
   @FXML
   private Label connection;
   private Timeline timer;
+  private Socket socket;
 
   /**
-   * This method sets the printWriter and sockerReader
+   * Sets the PrintWriter and BufferedReader for communication with the remote server.
    *
-   * @param printWriter
-   * @param socketReader
+   * @param printWriter  The PrintWriter for writing to the server.
+   * @param socketReader The BufferedReader for reading from the server.
    */
   public void setPrintWriter(PrintWriter printWriter, BufferedReader socketReader) {
     this.printWriter = printWriter;
@@ -63,7 +75,7 @@ public class RemoteController implements Initializable {
    * This method handles the number buttons on the remote. It reads the number text,
    * and parses it in the textfield before sending it in 1 second intervals.
    *
-   * @param event
+   * @param event The event associated with the method call.
    */
   @FXML
   private void onNumberButtonClicked(ActionEvent event) {
@@ -80,111 +92,69 @@ public class RemoteController implements Initializable {
     timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
 
       String text = textField.getText();
-      sendCommandToServer(new SetChannelCommand(text));
+      logic.sendCommand(new SetChannelCommand(text));
       textField.setText("");
     }));
     timer.playFromStart();
   }
 
-  /**
-   * This method should provide feedback from the remote app
-   * in the terminal.
-   *
-   * @param command Current command.
-   */
-  private void sendCommandToServer3(String command) {
-    if (printWriter != null) {
-      printWriter.println(command);
-      String serverResponse = null;
-      try {
-        serverResponse = socketReader.readLine();
-      } catch (IOException e) {
-        printWriter = null;
-        connection.setText("Connection lost");
-        connection.setTextFill(Color.YELLOW);
-      }
-      System.out.println("Server Response: " + serverResponse);
-    } else {
-      System.err.println("PrintWriter is not set.");
-    }
-  }
-
-  private Message sendCommandToServer(Command command) {
-    String serializedCommand = MessageSerializer.toString(command);
-    System.out.println("Sending command: " + serializedCommand);
-    Message serverResponse;
-    try {
-      printWriter.println(serializedCommand);
-      String rawServerResponse = socketReader.readLine();
-      System.out.println("Server Response: " + rawServerResponse);
-      serverResponse = MessageSerializer.fromString(rawServerResponse);
-      if (serverResponse == null) {
-        throw new IllegalStateException("Could not deserialize message: " + rawServerResponse);
-      }
-    } catch (IOException e) {
-      System.err.println("Server error response: " + e.getMessage());
-      printWriter = null;
-      connection.setText("Connection lost");
-      connection.setTextFill(Color.YELLOW);
-      serverResponse = null;
-    }
-    return serverResponse;
-  }
 
   /**
    * This method handles the turn on command.
    */
   public void turnOn() {
-    sendCommandToServer(new TurnOnCommand());
+    logic.sendCommand(new TurnOnCommand());
   }
 
   /**
    * This method handles the turn-off command.
    */
   public void turnOff() {
-    sendCommandToServer(new TurnOffCommand());
+    logic.sendCommand(new TurnOffCommand());
   }
 
   /**
    * This method handles the channel down command.
    */
   public void channelDown() {
-    sendCommandToServer(new ChannelDownCommand());
+    logic.sendCommand(new ChannelDownCommand());
   }
 
   /**
    * This method handles the channel up command.
    */
   public void channelUp() {
-    sendCommandToServer(new ChannelUpCommand());
+    logic.sendCommand(new ChannelUpCommand());
   }
 
   /**
    * This method handles the exit command.
    */
-  public void exit() {
-    sendCommandToServer(new IgnoreCommand());
+  public void mute() {
+    logic.sendCommand(new ToggleMuteCommand());
   }
 
   /**
    * This method handles the number of channels command.
    */
   public void getNumberOfChannels() {
-    sendCommandToServer(new ChannelCountCommand());
+    logic.sendCommand(new ChannelCountCommand());
   }
 
   /**
-   * The initialize method creates a timeline that checks if the remote has
-   * a connection to the smart tv, and should provide feedback if connection is lost.
+   * Initializes the remote control application by creating a timeline that periodically checks
+   * if the remote has a connection to the smart TV. It provides feedback if the connection is lost.
    *
-   * @param url
-   * @param resourceBundle
+   * @param url            The location used to resolve relative paths for the root object,
+   *                       or null if the location is not known.
+   * @param resourceBundle The resource bundle to be used for localization,
+   *                       or null if this is not needed.
    */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    Timeline timeline = new Timeline(new KeyFrame(
-            Duration.millis(1000),
-            event -> updateConnectionStatus()));
+    timeline = new Timeline(new KeyFrame(
+        Duration.millis(1000),
+        event -> updateConnectionStatus()));
     timeline.setCycleCount(Timeline.INDEFINITE);
     timeline.play();
   }
@@ -204,30 +174,35 @@ public class RemoteController implements Initializable {
   }
 
   /**
-   * This method should create a new socket to reconnect the remote
-   *
-   * //TODO Shorten this (split or get from RemoteControl class?)
+   * This method should create a new socket to reconnect the remote.
    */
   public void reConnect() {
-
     Platform.runLater(() -> {
       connection.setTextFill(Color.YELLOW);
       connection.setText("Connecting...");
     });
-    new Thread(() -> {
-      try {
-        Socket socket = new Socket("localhost", PORT_NUMBER);
-        ClientHandler remoteClient = new ClientHandler(socket, new TvServer(new TvLogic(100)));
-        printWriter = new PrintWriter(socket.getOutputStream(), true);
-        socketReader = new BufferedReader(
-                new InputStreamReader(socket.getInputStream()));
-        remoteClient.run();
-        System.out.println("Connecting success");
-      } catch (IOException e) {
-        System.err.println("Could not establish connection to the server: " + e.getMessage());
-      }
 
-    }).start();
+    if (logic.start()) {
+      timeline.play();
+      setPrintWriter(logic.getSocketWriter(), logic.getSocketReader());
+    } else {
+      PauseTransition delay = new PauseTransition(Duration.seconds(.5));
+      delay.setOnFinished(event -> setStatusOffline());
+      delay.play();
+    }
+
+  }
+
+  public void setLogic(RemoteLogic logic) {
+    this.logic = logic;
+  }
+
+  public void setStatusOffline() {
+    Platform.runLater(() -> {
+      timeline.pause();
+      connection.setTextFill(Color.GRAY);
+      connection.setText("Offline");
+    });
   }
 
 }

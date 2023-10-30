@@ -1,11 +1,5 @@
 package no.gruppe15.remote;
 
-import javafx.application.Application;
-import no.gruppe15.command.Command;
-import no.gruppe15.message.Message;
-import no.gruppe15.message.MessageSerializer;
-import no.gruppe15.remote.gui.RemoteApp;
-
 import static no.gruppe15.tv.TvServer.PORT_NUMBER;
 
 import java.io.BufferedReader;
@@ -13,6 +7,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import javafx.application.Application;
+import no.gruppe15.command.Command;
+import no.gruppe15.message.MessageSerializer;
+import no.gruppe15.remote.gui.RemoteApp;
+import no.gruppe15.remote.gui.RemoteController;
 
 
 /**
@@ -27,11 +26,18 @@ public class RemoteLogic {
   private Socket socket;
   private BufferedReader socketReader;
   private PrintWriter socketWriter;
+  private RemoteController controller;
 
   public static void main(String[] args) {
     Application.launch(RemoteApp.class, args);
   }
 
+  /**
+   * Attempts to establish a connection to the remote server. If successful,
+   * initializes the necessary communication streams and sets up the connection.
+   *
+   * @return True if the connection to the server was successfully established; false otherwise.
+   */
   public boolean start() {
     boolean connected = false;
     try {
@@ -65,20 +71,26 @@ public class RemoteLogic {
    * Send a command to the TV.
    *
    * @param command The command to send
-   * @return The response from the TV
    */
-  public Message sendCommand(Command command) {
-    Message response = null;
+  public void sendCommand(Command command) {
     if (socketWriter != null && socketReader != null) {
       try {
         socketWriter.println(MessageSerializer.toString(command));
-        String rawResponse = socketReader.readLine();
-        response = MessageSerializer.fromString(rawResponse);
-      } catch (IOException e) {
+      } catch (Exception e) {
         System.err.println("Could not send a command: " + e.getMessage());
       }
     }
-    return response;
   }
 
+  public void setController(RemoteController controller) {
+    this.controller = controller;
+  }
+
+  public PrintWriter getSocketWriter() {
+    return socketWriter;
+  }
+
+  public BufferedReader getSocketReader() {
+    return socketReader;
+  }
 }

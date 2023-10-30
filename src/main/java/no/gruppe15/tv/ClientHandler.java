@@ -1,27 +1,33 @@
 package no.gruppe15.tv;
 
-import no.gruppe15.command.Command;
-import no.gruppe15.message.*;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import no.gruppe15.command.Command;
+import no.gruppe15.message.CurrentChannelMessage;
+import no.gruppe15.message.Message;
+import no.gruppe15.message.MessageSerializer;
+import no.gruppe15.message.TvStateMessage;
 
 /**
- * Handler for one specific client connection (TCP).
+ * This class is responsible for handling the TCP communication for one client.
  *
- * TODO: Rewrite as to not be a complete "copy"
+ * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
+ * @version 30.10.2023
  */
 public class ClientHandler extends Thread {
   private final Socket socket;
-  private final BufferedReader socketReader;
-  private final PrintWriter socketWriter;
+
   private final TvServer server;
 
+  private final BufferedReader socketReader;
+
+  private final PrintWriter socketWriter;
+
   /**
-   * Create a new client handler.
+   * Creates an instance of ClientHandler.
    *
    * @param socket Socket associated with this client
    * @param server Reference to the main TCP server class
@@ -35,32 +41,42 @@ public class ClientHandler extends Thread {
   }
 
   /**
-   * Run the client handling logic.
+   * This method is responsible for handling client requests and executing commands.
    */
   @Override
   public void run() {
     Message response;
-    do {
-      Command clientCommand = readClientRequest();
-      if (clientCommand != null) {
-        //TODO: THIS NEEDS TO BE FIXED!!!
-        System.out.println("Received a " + clientCommand.getClass().getSimpleName());
-        response = clientCommand.execute(server.getTvLogic());
-        if (response != null) {
-          if (isBroadcastMessage(response)) {
-            server.sendResponseToAllClients(response);
-          } else {
-            sendToClient(response);
-          }
-        }
+    while ((response = executeClientCommand()) != null) {
+      if (isBroadcastMessage(response)) {
+        server.sendResponseToAllClients(response);
       } else {
-        response = null;
+        sendToClient(response);
       }
-    } while (response != null);
+    }
     System.out.println("Client " + socket.getRemoteSocketAddress() + " leaving");
     server.clientDisconnected(this);
   }
 
+  /**
+   * Reads a client request and executes the corresponding command.
+   *
+   * @return The response message from the executed command or null if the command is null.
+   */
+  private Message executeClientCommand() {
+    Command clientCommand = readClientRequest();
+    if (clientCommand == null) {
+      return null;
+    }
+    System.out.println("Received a " + clientCommand.getClass().getSimpleName());
+    return clientCommand.execute(server.getTvLogic());
+  }
+
+  /**
+   * Checks if the given message is a broadcast message.
+   *
+   * @param response The response to check.
+   * @return True if the response is a broadcast message, false otherwise.
+   */
   private boolean isBroadcastMessage(Message response) {
     return response instanceof TvStateMessage
         || response instanceof CurrentChannelMessage;
@@ -97,10 +113,20 @@ public class ClientHandler extends Thread {
     socketWriter.println(MessageSerializer.toString(message));
   }
 
-  public PrintWriter getSocketWriter(){
+  /**
+   * This method should return the socketWriter.
+   *
+   * @return the socketWriter.
+   */
+  public PrintWriter getSocketWriter() {
     return this.socketWriter;
   }
 
+  /**
+   * This method should return the socketReader.
+   *
+   * @return the socketReader.
+   */
   public BufferedReader getSocketReader() {
     return this.socketReader;
   }

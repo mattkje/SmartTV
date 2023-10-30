@@ -4,7 +4,6 @@ import no.gruppe15.tv.TvLogic;
 import no.gruppe15.message.ErrorMessage;
 import no.gruppe15.message.Message;
 import no.gruppe15.message.OkMessage;
-import no.gruppe15.tv.gui.SmartTVController;
 
 /**
  * Command that changes the channel to a certain number.
@@ -22,7 +21,6 @@ public class SetChannelCommand extends Command {
   public Message execute(TvLogic logic) {
     try {
       logic.setChannel(channelToInt());
-      //controller.setChannelMedia(channelToInt() + "");
       return new OkMessage("Channel now set to " + channelToInt());
     } catch (IllegalStateException e) {
       return new ErrorMessage("The TV must be turned on first");

@@ -4,7 +4,6 @@ import no.gruppe15.tv.TvLogic;
 import no.gruppe15.message.ErrorMessage;
 import no.gruppe15.message.Message;
 import no.gruppe15.message.OkMessage;
-import no.gruppe15.tv.gui.SmartTVController;
 
 public class ChannelDownCommand extends Command {
 
