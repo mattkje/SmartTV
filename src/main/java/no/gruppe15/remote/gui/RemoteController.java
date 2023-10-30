@@ -11,6 +11,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import no.gruppe15.command.*;
+import no.gruppe15.message.Message;
+import no.gruppe15.message.MessageSerializer;
+import no.gruppe15.tv.ClientHandler;
+import no.gruppe15.tv.TvLogic;
+import no.gruppe15.tv.TvServer;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -73,7 +80,7 @@ public class RemoteController implements Initializable {
     timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
 
       String text = textField.getText();
-      sendCommandToServer("c"+text);
+      sendCommandToServer(new SetChannelCommand(text));
       textField.setText("");
     }));
     timer.playFromStart();
@@ -85,7 +92,7 @@ public class RemoteController implements Initializable {
    *
    * @param command Current command.
    */
-  private void sendCommandToServer(String command) {
+  private void sendCommandToServer3(String command) {
     if (printWriter != null) {
       printWriter.println(command);
       String serverResponse = null;
@@ -102,46 +109,68 @@ public class RemoteController implements Initializable {
     }
   }
 
+  private Message sendCommandToServer(Command command) {
+    String serializedCommand = MessageSerializer.toString(command);
+    System.out.println("Sending command: " + serializedCommand);
+    Message serverResponse;
+    try {
+      printWriter.println(serializedCommand);
+      String rawServerResponse = socketReader.readLine();
+      System.out.println("Server Response: " + rawServerResponse);
+      serverResponse = MessageSerializer.fromString(rawServerResponse);
+      if (serverResponse == null) {
+        throw new IllegalStateException("Could not deserialize message: " + rawServerResponse);
+      }
+    } catch (IOException e) {
+      System.err.println("Server error response: " + e.getMessage());
+      printWriter = null;
+      connection.setText("Connection lost");
+      connection.setTextFill(Color.YELLOW);
+      serverResponse = null;
+    }
+    return serverResponse;
+  }
+
   /**
    * This method handles the turn on command.
    */
   public void turnOn() {
-    sendCommandToServer("1");
+    sendCommandToServer(new TurnOnCommand());
   }
 
   /**
-   * This method handles the turn off command.
+   * This method handles the turn-off command.
    */
   public void turnOff() {
-    sendCommandToServer("0");
+    sendCommandToServer(new TurnOffCommand());
   }
 
   /**
    * This method handles the channel down command.
    */
   public void channelDown() {
-    sendCommandToServer("-");
+    sendCommandToServer(new ChannelDownCommand());
   }
 
   /**
    * This method handles the channel up command.
    */
   public void channelUp() {
-    sendCommandToServer("+");
+    sendCommandToServer(new ChannelUpCommand());
   }
 
   /**
    * This method handles the exit command.
    */
   public void exit() {
-    sendCommandToServer("exit");
+    sendCommandToServer(new IgnoreCommand());
   }
 
   /**
    * This method handles the number of channels command.
    */
   public void getNumberOfChannels() {
-    sendCommandToServer("n");
+    sendCommandToServer(new ChannelCountCommand());
   }
 
   /**
@@ -180,6 +209,7 @@ public class RemoteController implements Initializable {
    * //TODO Shorten this (split or get from RemoteControl class?)
    */
   public void reConnect() {
+
     Platform.runLater(() -> {
       connection.setTextFill(Color.YELLOW);
       connection.setText("Connecting...");
@@ -187,31 +217,12 @@ public class RemoteController implements Initializable {
     new Thread(() -> {
       try {
         Socket socket = new Socket("localhost", PORT_NUMBER);
+        ClientHandler remoteClient = new ClientHandler(socket, new TvServer(new TvLogic(100)));
         printWriter = new PrintWriter(socket.getOutputStream(), true);
         socketReader = new BufferedReader(
                 new InputStreamReader(socket.getInputStream()));
-
-        Scanner userInputScanner = new Scanner(System.in);
-        boolean exit = false;
-
-        while (!exit) {
-          System.out.println("");
-          String input = userInputScanner.nextLine();
-
-          printWriter.println(input);
-
-          if (input.equals("exit")) {
-            exit = true;
-          }
-
-          String serverResponse = socketReader.readLine();
-          System.out.println("Server Response: " + serverResponse);
-        }
-
-        printWriter.close();
-        socketReader.close();
-        socket.close();
-
+        remoteClient.run();
+        System.out.println("Connecting success");
       } catch (IOException e) {
         System.err.println("Could not establish connection to the server: " + e.getMessage());
       }

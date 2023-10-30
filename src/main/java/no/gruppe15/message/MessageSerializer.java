@@ -15,7 +15,7 @@ public class MessageSerializer {
   public static final String TURN_OFF_COMMAND = "0";
   public static final String GET_CHANNEL_COMMAND = "g";
   public static final String SET_CHANNEL_COMMAND = "c";
-  public static final String CHANNEL_COUNT_MESSAGE = "N";
+  public static final String CHANNEL_COUNT_MESSAGE = "n";
   public static final String ERROR_MESSAGE = "e";
   public static final String CURRENT_CHANNEL_MESSAGE = "s";
   public static final String TV_STATE_ON_MESSAGE = "TVON";
@@ -31,7 +31,9 @@ public class MessageSerializer {
     if (s.isEmpty()) {
       return new IgnoreCommand();
     }
+
     char firstS = s.charAt(0);
+    //TODO: Find out why s is null
     m = switch (firstS) {
       case 'n' -> new ChannelCountCommand();
       case 'c' -> new SetChannelCommand(s);

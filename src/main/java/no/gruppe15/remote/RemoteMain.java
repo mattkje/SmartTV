@@ -13,6 +13,14 @@ import java.io.IOException;
 public class RemoteMain {
 
     public static void main(String[] args) throws IOException {
-        RemoteApp.startApp();
+        RemoteLogic logic = new RemoteLogic();
+        if (logic.start()) {
+            RemoteApp.startApp();
+            logic.stop();
+        } else {
+            System.err.println("Could not connect to a smart TV!");
+        }
+
+
     }
 }

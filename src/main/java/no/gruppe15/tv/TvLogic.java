@@ -1,5 +1,7 @@
 package no.gruppe15.tv;
 
+import no.gruppe15.tv.gui.SmartTVController;
+
 /**
  * This class represents the Smart TV logic.
  *
@@ -10,6 +12,7 @@ public class TvLogic {
   private boolean isTvOn;
   private final int numberOfChannels;
   private int currentChannel;
+  private SmartTVController controller;
 
   /**
    * Create a new Smart TV.
@@ -33,6 +36,7 @@ public class TvLogic {
     if (isTvOn) {
       throw new IllegalStateException("The TV is already on");
     }
+    controller.setChannelMedia("1");
     isTvOn = true;
   }
 
@@ -43,6 +47,7 @@ public class TvLogic {
     if (!isTvOn) {
       throw new IllegalStateException("The TV must be turned on first");
     }
+    controller.setChannelMedia("0");
     isTvOn = false;
   }
 
@@ -65,6 +70,7 @@ public class TvLogic {
     if (!isTvOn) {
       throw new IllegalStateException("The TV must be turned on first");
     }
+    controller.displayNumberOfChannels(numberOfChannels);
     return numberOfChannels;
   }
 
@@ -95,6 +101,25 @@ public class TvLogic {
     if (channel <= 0 || channel > numberOfChannels) {
       throw new IllegalArgumentException("Invalid channel number");
     }
+    handleController(channel);
     currentChannel = channel;
+  }
+
+  /**
+   * This method connects the GUI controller to the tv logic.
+   *
+   * @param controller The app controller.
+   */
+  public void setController(SmartTVController controller){
+    this.controller = controller;
+  }
+
+  /**
+   * This method handles commands for the controller.
+   *
+   * @param command Current command.
+   */
+  public void handleController(int command){
+    controller.setChannelMedia(command + "");
   }
 }

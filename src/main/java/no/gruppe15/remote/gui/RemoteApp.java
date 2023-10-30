@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import no.gruppe15.remote.ClientMessageListener;
 import no.gruppe15.tv.ClientHandler;
 import no.gruppe15.tv.TvLogic;
 import no.gruppe15.tv.TvServer;
@@ -35,8 +34,7 @@ public class RemoteApp extends Application{
   @Override
   public void start(Stage primaryStage) throws Exception {
 
-    Thread remoteThread = new Thread(remoteClient::run);
-    remoteThread.start();
+
 
 
     loader = new FXMLLoader(this.getClass().getResource("/no/gruppe15/fxml/Remote.fxml"));
@@ -48,5 +46,8 @@ public class RemoteApp extends Application{
     primaryStage.getIcons().add(new Image("/no/gruppe15/media/remote.png"));
     primaryStage.setTitle("");
     primaryStage.show();
+
+    Thread remoteThread = new Thread(remoteClient::run);
+    remoteThread.start();
   }
 }
