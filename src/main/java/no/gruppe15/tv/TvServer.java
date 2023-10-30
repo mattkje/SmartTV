@@ -9,6 +9,9 @@ import no.gruppe15.message.Message;
 
 /**
  * Handles the TCP server socket(s).
+ *
+ * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
+ * @version 30.10.2023
  */
 public class TvServer {
   public static final int PORT_NUMBER = 10025;

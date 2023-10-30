@@ -1,11 +1,13 @@
 package no.gruppe15.tv;
 
-import javafx.application.Application;
 import no.gruppe15.tv.gui.SmartTVController;
 import no.gruppe15.tv.gui.SmartTvApp;
 
 /**
- * Run the whole Smart TV, including the TCP socket communication.
+ * A starting point for the SmartTV application.
+ *
+ * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
+ * @version 30.10.2023
  */
 public class SmartTv {
 

@@ -1,7 +1,10 @@
 package no.gruppe15.tv;
 
 /**
- * Smart TV - the logic.
+ * This class represents the Smart TV logic.
+ *
+ * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
+ * @version 30.10.2023
  */
 public class TvLogic {
   private boolean isTvOn;

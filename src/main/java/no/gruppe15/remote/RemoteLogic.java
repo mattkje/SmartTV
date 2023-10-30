@@ -18,7 +18,8 @@ import java.net.Socket;
 /**
  * Remote control for a TV - a TCP client.
  *
- * TODO: Implement class
+ * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
+ * @version 30.10.2023
  */
 public class RemoteLogic {
 

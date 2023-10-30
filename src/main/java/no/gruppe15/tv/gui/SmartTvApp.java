@@ -7,7 +7,11 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
- * GUI for the smart tv.
+ * This class represents the GUI for the smart tv. It should
+ * load a FXML file and display its content.
+ *
+ * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
+ * @version 30.10.2023
  */
 public class SmartTvApp extends Application {
 

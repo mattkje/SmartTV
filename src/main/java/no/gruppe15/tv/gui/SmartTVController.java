@@ -20,7 +20,6 @@ import java.util.ResourceBundle;
 /**
  * This class represents the controller for the SmartTV user interface.
  * Use setChannelMedia(String channelNumber) to set graphical channel
- * <p>
  *
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
  * @version 23.10.2023

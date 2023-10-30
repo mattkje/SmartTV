@@ -2,7 +2,6 @@ package no.gruppe15.tv;
 
 import no.gruppe15.command.Command;
 import no.gruppe15.message.*;
-import no.gruppe15.tv.gui.SmartTVController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +11,8 @@ import java.net.Socket;
 
 /**
  * Handler for one specific client connection (TCP).
+ *
+ * TODO: Rewrite as to not be a complete "copy"
  */
 public class ClientHandler extends Thread {
   private final Socket socket;
