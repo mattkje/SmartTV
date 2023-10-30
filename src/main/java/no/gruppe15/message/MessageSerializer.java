@@ -5,6 +5,8 @@ import no.gruppe15.command.*;
 
 /**
  * Serializes messages to protocol-defined strings and vice versa.
+ *
+ * TODO: Rewrite as to not be a "copy"
  */
 public class MessageSerializer {
 
@@ -12,10 +14,10 @@ public class MessageSerializer {
   public static final String TURN_ON_COMMAND = "1";
   public static final String TURN_OFF_COMMAND = "0";
   public static final String GET_CHANNEL_COMMAND = "g";
-  public static final String SET_CHANNEL_COMMAND = "s";
+  public static final String SET_CHANNEL_COMMAND = "c";
   public static final String CHANNEL_COUNT_MESSAGE = "N";
   public static final String ERROR_MESSAGE = "e";
-  public static final String CURRENT_CHANNEL_MESSAGE = "C";
+  public static final String CURRENT_CHANNEL_MESSAGE = "s";
   public static final String TV_STATE_ON_MESSAGE = "TVON";
   public static final String TV_STATE_OFF_MESSAGE = "TVoff";
   /**

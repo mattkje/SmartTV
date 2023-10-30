@@ -96,9 +96,7 @@ public class RemoteController implements Initializable {
         connection.setText("Connection lost");
         connection.setTextFill(Color.YELLOW);
       }
-      System.out.println(command);
       System.out.println("Server Response: " + serverResponse);
-      System.out.print("Enter a message: ");
     } else {
       System.err.println("PrintWriter is not set.");
     }
@@ -198,7 +196,6 @@ public class RemoteController implements Initializable {
 
         while (!exit) {
           System.out.println("");
-          System.out.print("Enter a message: ");
           String input = userInputScanner.nextLine();
 
           printWriter.println(input);

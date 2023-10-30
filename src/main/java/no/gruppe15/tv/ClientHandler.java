@@ -43,8 +43,9 @@ public class ClientHandler extends Thread {
     do {
       Command clientCommand = readClientRequest();
       if (clientCommand != null) {
+        //TODO: THIS NEEDS TO BE FIXED!!!
         System.out.println("Received a " + clientCommand.getClass().getSimpleName());
-        response = clientCommand.execute(server.getTvLogic()); //TODO: THIS NEEDS TO BE IMPORTED!!!
+        response = clientCommand.execute(server.getTvLogic());
         if (response != null) {
           if (isBroadcastMessage(response)) {
             server.sendResponseToAllClients(response);
