@@ -157,7 +157,7 @@
       </Label>
       <VBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-spacing: 10;">
          <children>
-            <Label fx:id="connection" alignment="CENTER" prefHeight="37.0" prefWidth="141.0" style="-fx-background-color: #111; -fx-padding: 6; -fx-background-radius: 5;" text="Not connected" textFill="#ff0f0f">
+            <Label fx:id="connection" alignment="CENTER" prefHeight="37.0" prefWidth="141.0" style="-fx-background-color: #111; -fx-padding: 6; -fx-background-radius: 5;" text="Disconnected" textFill="#ff0f0f">
                <font>
                   <Font name="Monospaced Regular" size="13.0" />
                </font>

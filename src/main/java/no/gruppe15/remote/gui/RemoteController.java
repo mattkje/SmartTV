@@ -143,7 +143,7 @@ public class RemoteController implements Initializable {
       connection.setTextFill(Color.LIME);
       return true;
     } else {
-      connection.setText("Not connected");
+      connection.setText("Disconnected");
       connection.setTextFill(Color.RED);
       return false;
     }
@@ -163,7 +163,7 @@ public class RemoteController implements Initializable {
       timeline.play();
     } else {
       PauseTransition delay = new PauseTransition(Duration.seconds(.5));
-      delay.setOnFinished(event -> setStatusOffline());
+      delay.setOnFinished(event -> setStatusDisconnected());
       delay.play();
     }
   }
@@ -185,13 +185,13 @@ public class RemoteController implements Initializable {
   }
 
   /**
-   * Sets status to offline.
+   * Sets status to disconnected.
    */
-  public void setStatusOffline() {
+  public void setStatusDisconnected() {
     Platform.runLater(() -> {
       timeline.pause();
       connection.setTextFill(Color.GRAY);
-      connection.setText("Offline");
+      connection.setText("Disconnected");
     });
   }
 }

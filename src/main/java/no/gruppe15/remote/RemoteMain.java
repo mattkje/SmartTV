@@ -19,9 +19,9 @@ public class RemoteMain {
   public static void main(String[] args) {
     RemoteLogic logic = new RemoteLogic();
     if (logic.start()) {
-      System.out.println("Starting in online mode");
+      System.out.println("Starting in connected mode");
     } else {
-      System.out.println("Starting in offline mode");
+      System.out.println("Starting in disconnected mode");
     }
     RemoteApp.startApp(logic);
     logic.stop();
