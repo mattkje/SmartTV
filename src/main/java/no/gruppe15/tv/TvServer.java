@@ -34,17 +34,21 @@ public class TvServer {
   public void startServer() {
     listeningSocket = openListeningSocket();
 
-    if (listeningSocket != null) {
-      System.out.println("Server is now listening on port " + PORT_NUMBER);
-      isTcpServerRunning = true;
+    if (listeningSocket == null) {
+      System.err.println("Failed to open the listening socket. Server cannot start.");
+      return;
+    }
 
-      while (isTcpServerRunning) {
-        ClientHandler clientHandler = acceptNextClientConnection(listeningSocket);
+    System.out.println("Server is now listening on port " + PORT_NUMBER);
 
-        if (clientHandler != null) {
-          connectedClients.add(clientHandler);
-          clientHandler.start();
-        }
+    isTcpServerRunning = true;
+
+    while (isTcpServerRunning) {
+      ClientHandler clientHandler = acceptNextClientConnection(listeningSocket);
+
+      if (clientHandler != null) {
+        connectedClients.add(clientHandler);
+        clientHandler.start();
       }
     }
   }
@@ -72,7 +76,7 @@ public class TvServer {
     try {
       return new ServerSocket(PORT_NUMBER);
     } catch (IOException e) {
-      System.err.println("Could not open server socket: " + e.getMessage());
+      System.err.println("Failed to open the server socket on port " + PORT_NUMBER + ": " + e.getMessage());
       return null;
     }
   }
@@ -88,16 +92,13 @@ public class TvServer {
   private ClientHandler acceptNextClientConnection(ServerSocket listeningSocket) {
     try {
       Socket clientSocket = listeningSocket.accept();
-      String clientAddress = clientSocket.getRemoteSocketAddress().toString();
-      System.out.println("New client connected from " + clientAddress);
+      System.out.println("New client connected from " + clientSocket.getRemoteSocketAddress());
       return new ClientHandler(clientSocket, this);
     } catch (IOException e) {
-      String errorMessage = "Could not accept client connection: " + e.getMessage();
-      System.err.println(errorMessage);
+      System.err.println("Could not accept client connection: " + e.getMessage());
       return null;
     }
   }
-
 
   /**
    * Get the associated TV logic.
