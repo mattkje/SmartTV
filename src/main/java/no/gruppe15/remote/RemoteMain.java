@@ -1,7 +1,6 @@
 package no.gruppe15.remote;
 
 import java.io.IOException;
-import javafx.application.Application;
 import no.gruppe15.remote.gui.RemoteApp;
 
 /**

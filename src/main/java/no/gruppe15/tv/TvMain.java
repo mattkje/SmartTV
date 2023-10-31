@@ -9,7 +9,7 @@ import no.gruppe15.tv.gui.SmartTvController;
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
  * @version 30.10.2023
  */
-public class SmartTv {
+public class TvMain {
 
   /**
    * Run the Smart TV, including the server.
@@ -24,5 +24,6 @@ public class SmartTv {
     Thread serverThread = new Thread(server::startServer);
     serverThread.start();
     SmartTvApp.startApp(controller);
+    server.stopServer();
   }
 }

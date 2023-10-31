@@ -24,6 +24,7 @@ public class TvServer {
   boolean isTcpServerRunning;
 
   private final List<ClientHandler> connectedClients = new ArrayList<>();
+  private ServerSocket listeningSocket;
 
   public TvServer(TvLogic logic) {
     this.logic = logic;
@@ -33,7 +34,7 @@ public class TvServer {
    * Start TCP server for this TV.
    */
   public void startServer() {
-    ServerSocket listeningSocket = openListeningSocket();
+    listeningSocket = openListeningSocket();
     System.out.println("Server listening on port " + PORT_NUMBER);
     if (listeningSocket != null) {
       isTcpServerRunning = true;
@@ -45,6 +46,16 @@ public class TvServer {
         }
       }
     }
+  }
+
+  public void stopServer() {
+    isTcpServerRunning = false;
+    try {
+      listeningSocket.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    System.out.println("Server stopped.");
   }
 
   /**

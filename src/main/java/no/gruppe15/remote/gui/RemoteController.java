@@ -1,7 +1,6 @@
 package no.gruppe15.remote.gui;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
@@ -76,15 +75,16 @@ public class RemoteController implements Initializable {
     Button button = (Button) event.getSource();
     String buttonText = button.getText();
 
+
+    feedbackUpdate(buttonText);
+  }
+
+  private void feedbackUpdate(String buttonText) {
     textField.appendText(buttonText);
-
     if (timer != null) {
-
       timer.stop();
     }
-
     timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-
       String text = textField.getText();
       logic.sendCommand(new SetChannelCommand(text));
       textField.setText("");
@@ -97,6 +97,7 @@ public class RemoteController implements Initializable {
    * This method handles the turn on command.
    */
   public void turnOn() {
+    feedbackUpdate("ON");
     logic.sendCommand(new TurnOnCommand());
   }
 
@@ -104,6 +105,7 @@ public class RemoteController implements Initializable {
    * This method handles the turn-off command.
    */
   public void turnOff() {
+    feedbackUpdate("OFF");
     logic.sendCommand(new TurnOffCommand());
   }
 
@@ -111,6 +113,7 @@ public class RemoteController implements Initializable {
    * This method handles the channel down command.
    */
   public void channelDown() {
+    feedbackUpdate("-");
     logic.sendCommand(new ChannelDownCommand());
   }
 
@@ -118,6 +121,7 @@ public class RemoteController implements Initializable {
    * This method handles the channel up command.
    */
   public void channelUp() {
+    feedbackUpdate("+");
     logic.sendCommand(new ChannelUpCommand());
   }
 
@@ -125,6 +129,7 @@ public class RemoteController implements Initializable {
    * This method handles the exit command.
    */
   public void mute() {
+    feedbackUpdate("MUTE");
     logic.sendCommand(new ToggleMuteCommand());
   }
 
@@ -132,6 +137,7 @@ public class RemoteController implements Initializable {
    * This method handles the number of channels command.
    */
   public void getNumberOfChannels() {
+    feedbackUpdate("COUNT");
     logic.sendCommand(new ChannelCountCommand());
   }
 
@@ -188,10 +194,17 @@ public class RemoteController implements Initializable {
 
   }
 
+  /**
+   * This method sets the logic.
+   * @param logic The RemoteLogic.
+   */
   public void setLogic(RemoteLogic logic) {
     this.logic = logic;
   }
 
+  /**
+   * Sets status to offline.
+   */
   public void setStatusOffline() {
     Platform.runLater(() -> {
       timeline.pause();
