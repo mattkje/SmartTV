@@ -1,10 +1,15 @@
 package no.gruppe15.command;
 
-import no.gruppe15.tv.TvLogic;
+
 import no.gruppe15.message.ErrorMessage;
 import no.gruppe15.message.Message;
 import no.gruppe15.message.OkMessage;
+import no.gruppe15.tv.TvLogic;
 
+/**
+ * Command that changes the channel by 1.
+ * Handles exceptions for when channel cannot be changed
+ */
 public class ChannelUpCommand extends Command {
 
   @Override

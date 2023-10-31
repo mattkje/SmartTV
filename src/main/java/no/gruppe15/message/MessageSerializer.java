@@ -5,8 +5,6 @@ import no.gruppe15.command.*;
 
 /**
  * Serializes messages to protocol-defined strings and vice versa.
- *
- * TODO: Rewrite as to not be a "copy"
  */
 public class MessageSerializer {
 
@@ -29,6 +27,7 @@ public class MessageSerializer {
    * @param s The string sent over the communication channel
    * @return The logical message, as interpreted according to the protocol
    */
+
   public static Message fromString(String s) {
     Message m;
     if (s.isEmpty() || s.equals("null")) {
@@ -37,7 +36,6 @@ public class MessageSerializer {
 
     char firstS = s.charAt(0);
 
-    //TODO: Find out why s is null
     m = switch (firstS) {
       case 'n' -> new ChannelCountCommand();
       case 'c' -> new SetChannelCommand(s);
@@ -51,6 +49,12 @@ public class MessageSerializer {
     return m;
   }
 
+  /**
+   * Returns the command as a string.
+   *
+   * @param m message to be sent
+   * @return command as message
+   */
   public static String toString(Message m) {
     String s = null;
     if (m instanceof TurnOffCommand) {

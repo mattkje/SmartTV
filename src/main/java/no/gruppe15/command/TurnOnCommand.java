@@ -1,9 +1,9 @@
 package no.gruppe15.command;
 
-import no.gruppe15.tv.TvLogic;
 import no.gruppe15.message.ErrorMessage;
 import no.gruppe15.message.Message;
 import no.gruppe15.message.OkMessage;
+import no.gruppe15.tv.TvLogic;
 
 /**
  * A command requesting to turn on the TV when executed.

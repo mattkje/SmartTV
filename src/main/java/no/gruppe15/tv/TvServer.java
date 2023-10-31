@@ -48,6 +48,9 @@ public class TvServer {
     }
   }
 
+  /**
+   * Stops the server from running.
+   */
   public void stopServer() {
     isTcpServerRunning = false;
     try {

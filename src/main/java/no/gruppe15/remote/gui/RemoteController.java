@@ -196,6 +196,7 @@ public class RemoteController implements Initializable {
 
   /**
    * This method sets the logic.
+   *
    * @param logic The RemoteLogic.
    */
   public void setLogic(RemoteLogic logic) {
