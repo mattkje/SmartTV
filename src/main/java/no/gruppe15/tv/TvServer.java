@@ -76,7 +76,7 @@ public class TvServer {
     try {
       return new ServerSocket(PORT_NUMBER);
     } catch (IOException e) {
-      System.err.println("Could not open server socket: " + e.getMessage());
+      System.err.println("Failed to open the server socket on port " + PORT_NUMBER + ": " + e.getMessage());
       return null;
     }
   }
