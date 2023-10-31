@@ -95,18 +95,20 @@ public class ClientHandler extends Thread {
       clientCommand = MessageSerializer.fromString(rawClientRequest);
       if (!(clientCommand instanceof Command)) {
         if (clientCommand != null) {
-          System.err.println("Wrong message from the client: " + clientCommand);
+          System.err.println("Received an unexpected message from the client: " + clientCommand);
         }
         clientCommand = null;
       }
     } catch (IOException e) {
-      System.err.println("Could not receive client request: " + e.getMessage());
+      System.err.println("Failed to receive the client request: " + e.getMessage());
     } catch (NullPointerException e1) {
-      System.out.println("Client lost connection");
+      System.out.println("The client has lost the connection");
     }
-    assert clientCommand instanceof Command;
+
+    assert clientCommand instanceof Command : "Expected a Command but received: " + clientCommand;
     return (Command) clientCommand;
   }
+
 
   /**
    * Send a response from the server to the client, over the TCP socket.
