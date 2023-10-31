@@ -33,18 +33,26 @@ public class TvServer {
    */
   public void startServer() {
     listeningSocket = openListeningSocket();
-    System.out.println("Server listening on port " + PORT_NUMBER);
-    if (listeningSocket != null) {
-      isTcpServerRunning = true;
-      while (isTcpServerRunning) {
-        ClientHandler clientHandler = acceptNextClientConnection(listeningSocket);
-        if (clientHandler != null) {
-          connectedClients.add(clientHandler);
-          clientHandler.start();
-        }
+
+    if (listeningSocket == null) {
+      System.err.println("Failed to open the listening socket. Server cannot start.");
+      return;
+    }
+
+    System.out.println("Server is now listening on port " + PORT_NUMBER);
+
+    isTcpServerRunning = true;
+
+    while (isTcpServerRunning) {
+      ClientHandler clientHandler = acceptNextClientConnection(listeningSocket);
+
+      if (clientHandler != null) {
+        connectedClients.add(clientHandler);
+        clientHandler.start();
       }
     }
   }
+
 
   /**
    * Stops the server from running.
