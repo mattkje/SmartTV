@@ -14,6 +14,7 @@ public class TvLogic {
   private final int numberOfChannels;
   private int currentChannel;
   private SmartTvController controller;
+  private String onMessage;
 
   /**
    * Creates an instance of TvLogic.
@@ -28,6 +29,7 @@ public class TvLogic {
     this.numberOfChannels = numberOfChannels;
     isTvOn = false;
     currentChannel = 1;
+    onMessage = "The TV is already on";
   }
 
   /**
@@ -46,7 +48,7 @@ public class TvLogic {
    */
   public void turnOff() {
     if (!isTvOn) {
-      throw new IllegalStateException("The TV must be turned on first");
+      throw new IllegalStateException(onMessage);
     }
     controller.setChannelMedia("0");
     isTvOn = false;
@@ -69,7 +71,7 @@ public class TvLogic {
    */
   public int getNumberOfChannels() throws IllegalStateException {
     if (!isTvOn) {
-      throw new IllegalStateException("The TV must be turned on first");
+      throw new IllegalStateException(onMessage);
     }
     controller.displayNumberOfChannels(numberOfChannels);
     return numberOfChannels;
@@ -83,7 +85,7 @@ public class TvLogic {
    */
   public int getCurrentChannel() throws IllegalStateException {
     if (!isTvOn) {
-      throw new IllegalStateException("The TV must be turned on first");
+      throw new IllegalStateException(onMessage);
     }
     return currentChannel;
   }
@@ -97,7 +99,7 @@ public class TvLogic {
    */
   public void setChannel(int channel) throws IllegalArgumentException, IllegalStateException {
     if (!isTvOn) {
-      throw new IllegalStateException("The TV must be turned on first");
+      throw new IllegalStateException(onMessage);
     }
     if (channel <= 0 || channel > numberOfChannels) {
       throw new IllegalArgumentException("Invalid channel number");
@@ -130,7 +132,7 @@ public class TvLogic {
    */
   public void toggleMute() {
     if (!isTvOn) {
-      throw new IllegalStateException("The TV must be turned on first");
+      throw new IllegalStateException(onMessage);
     }
     controller.toggleMute();
   }

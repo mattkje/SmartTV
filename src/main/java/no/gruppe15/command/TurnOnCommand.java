@@ -14,7 +14,6 @@ public class TurnOnCommand extends Command {
   public Message execute(TvLogic logic) {
     try {
       logic.turnOn();
-      //controller.setChannelMedia("1");
       return new OkMessage("TV turned on successfully");
     } catch (IllegalStateException e) {
       return new ErrorMessage("The TV is already on");

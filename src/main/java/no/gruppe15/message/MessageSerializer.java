@@ -8,6 +8,7 @@ import no.gruppe15.command.*;
  */
 public class MessageSerializer {
 
+
   public static final String CHANNEL_COUNT_COMMAND = "n";
   public static final String CHANNEL_UP_COMMAND = "+";
   public static final String CHANNEL_DOWN_COMMAND = "-";

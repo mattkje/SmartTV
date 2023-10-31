@@ -146,7 +146,6 @@ public class SmartTvController implements Initializable {
       mediaPlayer.seek(Duration.ZERO);
       mediaPlayer.play();
     });
-    //mediaPlayer.setMute(true);
 
     PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
     pause.setOnFinished(event -> mediaPlayer.play());

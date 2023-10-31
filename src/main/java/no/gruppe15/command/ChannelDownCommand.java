@@ -16,7 +16,6 @@ public class ChannelDownCommand extends Command {
   public Message execute(TvLogic logic) {
     try {
       logic.setChannel(logic.getCurrentChannel() - 1);
-      //controller.setChannelMedia(logic.getCurrentChannel() + "");
       return new OkMessage("Channel now set to " + logic.getCurrentChannel());
     } catch (IllegalStateException e) {
       return new ErrorMessage("The TV must be turned on first");
