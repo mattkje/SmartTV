@@ -33,11 +33,14 @@ public class TvServer {
    */
   public void startServer() {
     listeningSocket = openListeningSocket();
-    System.out.println("Server listening on port " + PORT_NUMBER);
+
     if (listeningSocket != null) {
+      System.out.println("Server is now listening on port " + PORT_NUMBER);
       isTcpServerRunning = true;
+
       while (isTcpServerRunning) {
         ClientHandler clientHandler = acceptNextClientConnection(listeningSocket);
+
         if (clientHandler != null) {
           connectedClients.add(clientHandler);
           clientHandler.start();
@@ -45,6 +48,7 @@ public class TvServer {
       }
     }
   }
+
 
   /**
    * Stops the server from running.
@@ -84,13 +88,16 @@ public class TvServer {
   private ClientHandler acceptNextClientConnection(ServerSocket listeningSocket) {
     try {
       Socket clientSocket = listeningSocket.accept();
-      System.out.println("New client connected from " + clientSocket.getRemoteSocketAddress());
+      String clientAddress = clientSocket.getRemoteSocketAddress().toString();
+      System.out.println("New client connected from " + clientAddress);
       return new ClientHandler(clientSocket, this);
     } catch (IOException e) {
-      System.err.println("Could not accept client connection: " + e.getMessage());
+      String errorMessage = "Could not accept client connection: " + e.getMessage();
+      System.err.println(errorMessage);
       return null;
     }
   }
+
 
   /**
    * Get the associated TV logic.
