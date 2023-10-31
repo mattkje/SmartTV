@@ -53,9 +53,12 @@ public class ClientHandler extends Thread {
         sendToClient(response);
       }
     }
-    System.out.println("Client " + socket.getRemoteSocketAddress() + " leaving");
+
+    String clientAddress = socket.getRemoteSocketAddress().toString();
+    System.out.println("Client at " + clientAddress + " has disconnected.");
     server.clientDisconnected(this);
   }
+
 
 
   /**
@@ -65,12 +68,17 @@ public class ClientHandler extends Thread {
    */
   private Message executeClientCommand() {
     Command clientCommand = readClientRequest();
+
     if (clientCommand == null) {
       return null;
     }
-    System.out.println("Received a " + clientCommand.getClass().getSimpleName());
+
+    String commandName = clientCommand.getClass().getSimpleName();
+    System.out.println("Received a " + commandName + " from the client.");
+
     return clientCommand.execute(server.getTvLogic());
   }
+
 
   /**
    * Checks if the given message is a broadcast message.
