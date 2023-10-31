@@ -11,7 +11,6 @@ import javafx.application.Application;
 import no.gruppe15.command.Command;
 import no.gruppe15.message.MessageSerializer;
 import no.gruppe15.remote.gui.RemoteApp;
-import no.gruppe15.remote.gui.RemoteController;
 
 
 /**
@@ -26,7 +25,6 @@ public class RemoteLogic {
   private Socket socket;
   private BufferedReader socketReader;
   private PrintWriter socketWriter;
-  private RemoteController controller;
 
   public static void main(String[] args) {
     Application.launch(RemoteApp.class, args);
@@ -82,15 +80,29 @@ public class RemoteLogic {
     }
   }
 
-  public void setController(RemoteController controller) {
-    this.controller = controller;
+  /**
+   * This method checks if socket is null.
+   *
+   * @return true if socket is not null, false otherwise.
+   */
+  public boolean isServerRunning() {
+    return socket != null;
   }
 
-  public PrintWriter getSocketWriter() {
-    return socketWriter;
-  }
-
-  public BufferedReader getSocketReader() {
-    return socketReader;
+  /**
+   * This method checks if the socket can write a byte.
+   *
+   * @return True if the socket is able to write byte, false otherwise.
+   */
+  public boolean isConnected() {
+    if (socket != null && socket.isConnected() && !socket.isClosed()) {
+      try {
+        socket.getOutputStream().write(0);
+        return true;
+      } catch (IOException e) {
+        return false;
+      }
+    }
+    return false;
   }
 }

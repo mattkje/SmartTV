@@ -101,7 +101,10 @@ public class ClientHandler extends Thread {
       }
     } catch (IOException e) {
       System.err.println("Could not receive client request: " + e.getMessage());
+    } catch (NullPointerException e1) {
+      System.out.println("Client lost connection");
     }
+    assert clientCommand instanceof Command;
     return (Command) clientCommand;
   }
 
@@ -112,24 +115,6 @@ public class ClientHandler extends Thread {
    */
   public void sendToClient(Message message) {
     socketWriter.println(MessageSerializer.toString(message));
-  }
-
-  /**
-   * This method should return the socketWriter.
-   *
-   * @return the socketWriter.
-   */
-  public PrintWriter getSocketWriter() {
-    return this.socketWriter;
-  }
-
-  /**
-   * This method should return the socketReader.
-   *
-   * @return the socketReader.
-   */
-  public BufferedReader getSocketReader() {
-    return this.socketReader;
   }
 
 }

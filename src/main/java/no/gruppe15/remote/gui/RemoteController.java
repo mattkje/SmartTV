@@ -1,7 +1,5 @@
 package no.gruppe15.remote.gui;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,12 +18,12 @@ import javafx.util.Duration;
 import no.gruppe15.command.ChannelCountCommand;
 import no.gruppe15.command.ChannelDownCommand;
 import no.gruppe15.command.ChannelUpCommand;
+import no.gruppe15.command.IgnoreCommand;
 import no.gruppe15.command.SetChannelCommand;
 import no.gruppe15.command.ToggleMuteCommand;
 import no.gruppe15.command.TurnOffCommand;
 import no.gruppe15.command.TurnOnCommand;
 import no.gruppe15.remote.RemoteLogic;
-import no.gruppe15.tv.ClientHandler;
 
 /**
  * Controller class for the RemoteApp class.
@@ -34,12 +32,6 @@ import no.gruppe15.tv.ClientHandler;
  * @version 23.10.2023
  */
 public class RemoteController implements Initializable {
-
-  private PrintWriter printWriter;
-
-  private BufferedReader socketReader;
-
-  private ClientHandler remoteClient;
 
   private Timeline timeline;
 
@@ -51,17 +43,6 @@ public class RemoteController implements Initializable {
   private Label connection;
   private Timeline timer;
   private Socket socket;
-
-  /**
-   * Sets the PrintWriter and BufferedReader for communication with the remote server.
-   *
-   * @param printWriter  The PrintWriter for writing to the server.
-   * @param socketReader The BufferedReader for reading from the server.
-   */
-  public void setPrintWriter(PrintWriter printWriter, BufferedReader socketReader) {
-    this.printWriter = printWriter;
-    this.socketReader = socketReader;
-  }
 
 
   /**
@@ -97,7 +78,6 @@ public class RemoteController implements Initializable {
    * This method handles the turn on command.
    */
   public void turnOn() {
-    feedbackUpdate("ON");
     logic.sendCommand(new TurnOnCommand());
   }
 
@@ -105,7 +85,6 @@ public class RemoteController implements Initializable {
    * This method handles the turn-off command.
    */
   public void turnOff() {
-    feedbackUpdate("OFF");
     logic.sendCommand(new TurnOffCommand());
   }
 
@@ -113,7 +92,6 @@ public class RemoteController implements Initializable {
    * This method handles the channel down command.
    */
   public void channelDown() {
-    feedbackUpdate("-");
     logic.sendCommand(new ChannelDownCommand());
   }
 
@@ -121,7 +99,6 @@ public class RemoteController implements Initializable {
    * This method handles the channel up command.
    */
   public void channelUp() {
-    feedbackUpdate("+");
     logic.sendCommand(new ChannelUpCommand());
   }
 
@@ -129,7 +106,6 @@ public class RemoteController implements Initializable {
    * This method handles the exit command.
    */
   public void mute() {
-    feedbackUpdate("MUTE");
     logic.sendCommand(new ToggleMuteCommand());
   }
 
@@ -137,7 +113,6 @@ public class RemoteController implements Initializable {
    * This method handles the number of channels command.
    */
   public void getNumberOfChannels() {
-    feedbackUpdate("COUNT");
     logic.sendCommand(new ChannelCountCommand());
   }
 
@@ -162,36 +137,42 @@ public class RemoteController implements Initializable {
   /**
    * This method checks whether the remote is connected to the smart tv.
    */
-  private void updateConnectionStatus() {
-    if (printWriter != null || logic.getSocketWriter() != null) {
+  private boolean updateConnectionStatus() {
+    if (logic.isServerRunning()) {
       connection.setText("Connected");
       connection.setTextFill(Color.LIME);
-
+      return true;
     } else {
       connection.setText("Not connected");
       connection.setTextFill(Color.RED);
+      return false;
     }
-
   }
 
   /**
    * This method should create a new socket to reconnect the remote.
    */
   public void reConnect() {
-    Platform.runLater(() -> {
-      connection.setTextFill(Color.YELLOW);
-      connection.setText("Connecting...");
-    });
-
+    if (logic.isConnected()) {
+      statusLoad("Already connected");
+      logic.sendCommand(new IgnoreCommand());
+      return;
+    }
+    statusLoad("Connecting...");
     if (logic.start()) {
       timeline.play();
-      setPrintWriter(logic.getSocketWriter(), logic.getSocketReader());
     } else {
       PauseTransition delay = new PauseTransition(Duration.seconds(.5));
       delay.setOnFinished(event -> setStatusOffline());
       delay.play();
     }
+  }
 
+  private void statusLoad(String status) {
+    Platform.runLater(() -> {
+      connection.setTextFill(Color.YELLOW);
+      connection.setText(status);
+    });
   }
 
   /**
@@ -213,5 +194,4 @@ public class RemoteController implements Initializable {
       connection.setText("Offline");
     });
   }
-
 }

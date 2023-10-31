@@ -1,6 +1,5 @@
 package no.gruppe15.tv;
 
-import java.io.IOException;
 import no.gruppe15.tv.gui.SmartTvController;
 
 /**
@@ -14,7 +13,7 @@ public class TvLogic {
   private final int numberOfChannels;
   private int currentChannel;
   private SmartTvController controller;
-  private String onMessage;
+  private final String onMessage;
 
   /**
    * Creates an instance of TvLogic.

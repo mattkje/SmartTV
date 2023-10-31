@@ -15,9 +15,7 @@ import no.gruppe15.message.Message;
  */
 public class TvServer {
 
-  public static final int PORT_NUMBER = 10025;
-
-  public static final String SERVER_HOST = "localhost";
+  public static final int PORT_NUMBER = 1238;
 
   private final TvLogic logic;
 
