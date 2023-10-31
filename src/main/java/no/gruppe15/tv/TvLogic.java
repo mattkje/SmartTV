@@ -1,15 +1,22 @@
-package no.gruppe15;
+package no.gruppe15.tv;
+
+import java.io.IOException;
+import no.gruppe15.tv.gui.SmartTvController;
 
 /**
- * Smart TV - the logic.
+ * This class represents the Smart TV logic.
+ *
+ * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
+ * @version 30.10.2023
  */
 public class TvLogic {
   private boolean isTvOn;
   private final int numberOfChannels;
   private int currentChannel;
+  private SmartTvController controller;
 
   /**
-   * Create a new Smart TV.
+   * Creates an instance of TvLogic.
    *
    * @param numberOfChannels The total number of channels the TV has
    */
@@ -24,22 +31,24 @@ public class TvLogic {
   }
 
   /**
-   * Turn ON the TV.
+   * This method should set the isTvOn to true.
    */
   public void turnOn() {
     if (isTvOn) {
       throw new IllegalStateException("The TV is already on");
     }
+    controller.setChannelMedia("1");
     isTvOn = true;
   }
 
   /**
-   * Turn OFF the TV.
+   * This method should set the isTvOn to false.
    */
   public void turnOff() {
     if (!isTvOn) {
       throw new IllegalStateException("The TV must be turned on first");
     }
+    controller.setChannelMedia("0");
     isTvOn = false;
   }
 
@@ -62,6 +71,7 @@ public class TvLogic {
     if (!isTvOn) {
       throw new IllegalStateException("The TV must be turned on first");
     }
+    controller.displayNumberOfChannels(numberOfChannels);
     return numberOfChannels;
   }
 
@@ -92,26 +102,37 @@ public class TvLogic {
     if (channel <= 0 || channel > numberOfChannels) {
       throw new IllegalArgumentException("Invalid channel number");
     }
+    handleController(channel);
     currentChannel = channel;
   }
 
   /**
-   * Changes the channel by x amount.
-   * Receives a number and changes the channel if it exists
-   * Negative numbers move the channel down
+   * This method connects the GUI controller to the tv logic.
    *
-   * @param amount the amount of channels to move up or down
-   * @throws IllegalStateException    When the TV is OFF
-   * @throws IllegalArgumentException When the channel number is invalid
+   * @param controller The app controller.
    */
+  public void setController(SmartTvController controller) {
+    this.controller = controller;
+  }
 
-  public void nextChannel(int amount) throws IllegalStateException, IllegalArgumentException {
+  /**
+   * This method handles commands for the controller.
+   *
+   * @param command Current command.
+   */
+  public void handleController(int command) {
+    controller.setChannelMedia(command + "");
+  }
+
+  /**
+   * This method checks whether the tv is on, before calling toggleMute method
+   * from controller class.
+   */
+  public void toggleMute() {
     if (!isTvOn) {
       throw new IllegalStateException("The TV must be turned on first");
     }
-    if (currentChannel + amount <= 0 || currentChannel + amount > numberOfChannels) {
-      throw new IllegalArgumentException("Invalid channel when skipping " + amount + " channels.");
-    }
-    currentChannel = currentChannel + amount;
+    controller.toggleMute();
   }
+
 }

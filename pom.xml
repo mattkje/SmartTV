@@ -51,7 +51,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>no.gruppe15.ui.SmartTvApp</mainClass>
+                    <mainClass>no.gruppe15.tv.gui.SmartTvApp</mainClass>
                 </configuration>
             </plugin>
 
