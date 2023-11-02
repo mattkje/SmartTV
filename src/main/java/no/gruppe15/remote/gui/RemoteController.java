@@ -1,6 +1,5 @@
 package no.gruppe15.remote.gui;
 
-import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -42,8 +41,6 @@ public class RemoteController implements Initializable {
   @FXML
   private Label connection;
   private Timeline timer;
-  private Socket socket;
-
 
   /**
    * This method handles the number buttons on the remote. It reads the number text,
@@ -77,6 +74,7 @@ public class RemoteController implements Initializable {
   /**
    * This method handles the turn on command.
    */
+  @FXML
   public void turnOn() {
     logic.sendCommand(new TurnOnCommand());
   }
@@ -84,6 +82,7 @@ public class RemoteController implements Initializable {
   /**
    * This method handles the turn-off command.
    */
+  @FXML
   public void turnOff() {
     logic.sendCommand(new TurnOffCommand());
   }
@@ -91,6 +90,7 @@ public class RemoteController implements Initializable {
   /**
    * This method handles the channel down command.
    */
+  @FXML
   public void channelDown() {
     logic.sendCommand(new ChannelDownCommand());
   }
@@ -98,6 +98,7 @@ public class RemoteController implements Initializable {
   /**
    * This method handles the channel up command.
    */
+  @FXML
   public void channelUp() {
     logic.sendCommand(new ChannelUpCommand());
   }
@@ -105,6 +106,7 @@ public class RemoteController implements Initializable {
   /**
    * This method handles the exit command.
    */
+  @FXML
   public void mute() {
     logic.sendCommand(new ToggleMuteCommand());
   }
@@ -112,6 +114,7 @@ public class RemoteController implements Initializable {
   /**
    * This method handles the number of channels command.
    */
+  @FXML
   public void getNumberOfChannels() {
     logic.sendCommand(new ChannelCountCommand());
   }
@@ -137,21 +140,20 @@ public class RemoteController implements Initializable {
   /**
    * This method checks whether the remote is connected to the smart tv.
    */
-  private boolean updateConnectionStatus() {
+  private void updateConnectionStatus() {
     if (logic.isServerRunning()) {
       connection.setText("Connected");
       connection.setTextFill(Color.LIME);
-      return true;
     } else {
       connection.setText("Disconnected");
       connection.setTextFill(Color.RED);
-      return false;
     }
   }
 
   /**
    * This method should create a new socket to reconnect the remote.
    */
+  @FXML
   public void reConnect() {
     if (logic.isConnected()) {
       statusLoad("Already connected");

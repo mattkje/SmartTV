@@ -35,12 +35,8 @@ public class SmartTvController implements Initializable {
   private HBox channelNumberBox;
   @FXML
   private Label channelLabel;
-
   @FXML
   private Label signal;
-  @FXML
-  private HBox channelBox;
-
   private MediaPlayer mediaPlayer;
 
 

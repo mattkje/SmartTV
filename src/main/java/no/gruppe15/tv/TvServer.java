@@ -26,7 +26,7 @@ public class TvServer {
   boolean isServerRunning;
 
   private final List<ClientHandler> connectedClients = new ArrayList<>();
-  private ServerSocket listeningSocket;
+  private ServerSocket serverSocket;
 
   public TvServer(TvLogic logic) {
     this.logic = logic;
@@ -36,9 +36,9 @@ public class TvServer {
    * Start TCP server for this TV.
    */
   public void startServer() {
-    listeningSocket = openListeningSocket();
+    serverSocket = openListeningSocket();
 
-    if (listeningSocket == null) {
+    if (serverSocket == null) {
       System.err.println("Failed to open the listening socket. Server cannot start.");
       return;
     }
@@ -48,7 +48,7 @@ public class TvServer {
     isServerRunning = true;
 
     while (isServerRunning) {
-      ClientHandler clientHandler = acceptNextClientConnection(listeningSocket);
+      ClientHandler clientHandler = acceptNextClientConnection(serverSocket);
 
       if (clientHandler != null) {
         connectedClients.add(clientHandler);
@@ -64,7 +64,7 @@ public class TvServer {
   public void stopServer() {
     isServerRunning = false;
     try {
-      listeningSocket.close();
+      serverSocket.close();
     } catch (IOException e) {
       System.err.println("An error occurred while stopping the server");
     }
@@ -132,7 +132,6 @@ public class TvServer {
   public TvLogic getTvLogic() {
     return logic;
   }
-
 
 }
 
