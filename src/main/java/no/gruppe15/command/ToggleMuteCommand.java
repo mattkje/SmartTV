@@ -13,8 +13,12 @@ public class ToggleMuteCommand extends Command {
   @Override
   public Message execute(TvLogic logic) {
     try {
-      logic.toggleMute();
-      return new OkMessage("Sound muted");
+      if (logic.toggleMute()) {
+        return new OkMessage("Sound muted");
+      } else {
+        return new OkMessage("Sound on");
+      }
+
     } catch (IllegalStateException e) {
       return new ErrorMessage("The TV must be turned on");
     }

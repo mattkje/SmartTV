@@ -7,7 +7,7 @@ import no.gruppe15.tv.gui.SmartTvController;
  * A starting point for the SmartTV application.
  *
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
- * @version 30.10.2023
+ * @version 02.11.2023
  */
 public class TvMain {
 

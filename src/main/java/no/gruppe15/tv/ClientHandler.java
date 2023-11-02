@@ -14,8 +14,12 @@ import no.gruppe15.message.TvStateMessage;
 /**
  * This class is responsible for handling the TCP communication for one client.
  *
+ * <p>Code Inspiration:
+ * The foundation of this class is inspired by the work of Girts Strazdins.
+ *
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
- * @version 30.10.2023
+ * @version 02.11.2023
+ * @see <a href="https://github.com/strazdinsg/datakomm-tools/tree/master" target="_blank">External Repository</a>
  */
 public class ClientHandler extends Thread {
   private final Socket socket;
@@ -48,15 +52,13 @@ public class ClientHandler extends Thread {
     Message response;
     while ((response = executeClientCommand()) != null) {
       if (isBroadcastMessage(response)) {
-        server.sendResponseToAllClients(response);
-      } else {
-        sendToClient(response);
+        server.broadcastMessageToAllClients(response);
       }
     }
 
     String clientAddress = socket.getRemoteSocketAddress().toString();
     System.out.println("Client at " + clientAddress + " has disconnected.");
-    server.clientDisconnected(this);
+    server.removeDisconnectedClient(this);
   }
 
 
@@ -67,16 +69,14 @@ public class ClientHandler extends Thread {
    * @return The response message from the executed command or null if the command is null.
    */
   private Message executeClientCommand() {
-    Command clientCommand = readClientRequest();
-
+    Command clientCommand = getClientCommand();
     if (clientCommand == null) {
       return null;
     }
 
     String commandName = clientCommand.getClass().getSimpleName();
     System.out.println("Received a " + commandName + " from the client.");
-
-    return clientCommand.execute(server.getTvLogic());
+    return sendResponseToClient(clientCommand.execute(server.getTvLogic()));
   }
 
 
@@ -96,7 +96,7 @@ public class ClientHandler extends Thread {
    *
    * @return The received client message, or null on error
    */
-  private Command readClientRequest() {
+  private Command getClientCommand() {
     Message clientCommand = null;
     try {
       String rawClientRequest = socketReader.readLine();
@@ -123,8 +123,9 @@ public class ClientHandler extends Thread {
    *
    * @param message The message to send to the client
    */
-  public void sendToClient(Message message) {
-    socketWriter.println(MessageSerializer.toString(message));
+  public Message sendResponseToClient(Message message) {
+    socketWriter.println(message);
+    return message;
   }
 
 }

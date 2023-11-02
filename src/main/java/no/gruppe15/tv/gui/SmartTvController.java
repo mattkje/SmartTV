@@ -22,7 +22,7 @@ import javafx.util.Duration;
  * Use setChannelMedia(String channelNumber) to set graphical channel
  *
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
- * @version 23.10.2023
+ * @version 02.11.2023
  */
 public class SmartTvController implements Initializable {
   @FXML
@@ -198,15 +198,22 @@ public class SmartTvController implements Initializable {
   /**
    * Toggles the mute status of the media player and updates the user interface accordingly.
    */
-  public void toggleMute() {
+  public boolean toggleMute() {
     String text;
     if (mediaPlayer.isMute()) {
       mediaPlayer.setMute(false);
       text = " Sound on ";
+      muteUi(text);
+      return false;
     } else {
       mediaPlayer.setMute(true);
       text = " Muted ";
+      muteUi(text);
+      return true;
     }
+  }
+
+  private void muteUi(String text) {
     Platform.runLater(() -> {
       channelDisplay(3);
       signal.setText(text);

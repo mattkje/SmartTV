@@ -5,9 +5,14 @@ import no.gruppe15.tv.gui.SmartTvController;
 /**
  * This class represents the Smart TV logic.
  *
+ * <p>Code Inspiration:
+ * The foundation of this class is inspired by the work of Girts Strazdins.
+ *
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
- * @version 30.10.2023
+ * @version 02.11.2023
+ * @see <a href="https://github.com/strazdinsg/datakomm-tools/tree/master" target="_blank">External Repository</a>
  */
+
 public class TvLogic {
   private boolean isTvOn;
   private final int numberOfChannels;
@@ -129,11 +134,11 @@ public class TvLogic {
    * This method checks whether the tv is on, before calling toggleMute method
    * from controller class.
    */
-  public void toggleMute() {
+  public boolean toggleMute() {
     if (!isTvOn) {
       throw new IllegalStateException(onMessage);
     }
-    controller.toggleMute();
+    return controller.toggleMute();
   }
 
 }

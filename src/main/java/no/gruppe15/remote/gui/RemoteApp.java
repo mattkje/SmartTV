@@ -9,6 +9,9 @@ import no.gruppe15.remote.RemoteClient;
 
 /**
  * GUI For the remote controller.
+ *
+ * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie.
+ * @version 02.11.2023
  */
 
 public class RemoteApp extends Application {

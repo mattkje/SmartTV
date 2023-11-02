@@ -10,8 +10,12 @@ import no.gruppe15.message.Message;
 /**
  * This class is responsible for managing the TCP server socket(s) for the TV application.
  *
+ * <p>Code Inspiration:
+ * The foundation of this class is inspired by the work of Girts Strazdins.
+ *
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
- * @version 30.10.2023
+ * @version 02.11.2023
+ * @see <a href="https://github.com/strazdinsg/datakomm-tools/tree/master" target="_blank">External Repository</a>
  */
 public class TvServer {
 
@@ -19,7 +23,7 @@ public class TvServer {
 
   private final TvLogic logic;
 
-  boolean isTcpServerRunning;
+  boolean isServerRunning;
 
   private final List<ClientHandler> connectedClients = new ArrayList<>();
   private ServerSocket listeningSocket;
@@ -41,9 +45,9 @@ public class TvServer {
 
     System.out.println("Server is now listening on port " + PORT_NUMBER);
 
-    isTcpServerRunning = true;
+    isServerRunning = true;
 
-    while (isTcpServerRunning) {
+    while (isServerRunning) {
       ClientHandler clientHandler = acceptNextClientConnection(listeningSocket);
 
       if (clientHandler != null) {
@@ -55,17 +59,18 @@ public class TvServer {
 
 
   /**
-   * Stops the server from running.
+   * Stops the TCP server and releases associated resources.
    */
   public void stopServer() {
-    isTcpServerRunning = false;
+    isServerRunning = false;
     try {
       listeningSocket.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      System.err.println("An error occurred while stopping the server");
     }
     System.out.println("Server stopped.");
   }
+
 
   /**
    * Opens a server socket to listen for incoming client connections on the specified port.
@@ -76,9 +81,28 @@ public class TvServer {
     try {
       return new ServerSocket(PORT_NUMBER);
     } catch (IOException e) {
-      System.err.println("Failed to open the server socket on port " + PORT_NUMBER + ": " + e.getMessage());
+      System.err.println(
+          "Failed to open the server socket on port " + PORT_NUMBER + ": " + e.getMessage());
       return null;
     }
+  }
+
+  /**
+   * Send a message to all currently connected clients.
+   *
+   * @param message The message to send
+   */
+  public void broadcastMessageToAllClients(Message message) {
+    connectedClients.forEach(clientHandler -> clientHandler.sendResponseToClient(message));
+  }
+
+  /**
+   * This method should remove any disconnected clients.
+   *
+   * @param clientHandler The current client handler.
+   */
+  public void removeDisconnectedClient(ClientHandler clientHandler) {
+    connectedClients.remove(clientHandler);
   }
 
 
@@ -109,19 +133,6 @@ public class TvServer {
     return logic;
   }
 
-  /**
-   * Send a message to all currently connected clients.
-   *
-   * @param message The message to send
-   */
-  public void sendResponseToAllClients(Message message) {
-    for (ClientHandler clientHandler : connectedClients) {
-      clientHandler.sendToClient(message);
-    }
-  }
 
-  public void clientDisconnected(ClientHandler clientHandler) {
-    connectedClients.remove(clientHandler);
-  }
 }
 

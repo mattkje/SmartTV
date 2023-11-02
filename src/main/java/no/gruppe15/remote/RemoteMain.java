@@ -6,7 +6,7 @@ import no.gruppe15.remote.gui.RemoteApp;
  * This class represents a starting point for the Remote application.
  *
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
- * @version 30.10.2023
+ * @version 02.11.2023
  */
 
 public class RemoteMain {
@@ -17,13 +17,13 @@ public class RemoteMain {
    * @param args Command-line arguments (not used in this application).
    */
   public static void main(String[] args) {
-    RemoteClient logic = new RemoteClient();
-    if (logic.start()) {
-      System.out.println("Starting in connected mode");
+    RemoteClient client = new RemoteClient();
+    if (client.start()) {
+      System.out.println("Server found: " + client.getServerHost());
     } else {
-      System.out.println("Starting in disconnected mode");
+      System.out.println("No server was found. Starting in disconnected mode");
     }
-    RemoteApp.startApp(logic);
-    logic.stop();
+    RemoteApp.startApp(client);
+    client.stop();
   }
 }

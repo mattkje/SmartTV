@@ -1,6 +1,5 @@
 package no.gruppe15.message;
 
-
 import no.gruppe15.command.ChannelCountCommand;
 import no.gruppe15.command.ChannelDownCommand;
 import no.gruppe15.command.ChannelUpCommand;
@@ -12,9 +11,11 @@ import no.gruppe15.command.TurnOnCommand;
 
 /**
  * Serializes messages to protocol-defined strings and vice versa.
+ *
+ * @author Girts Strazdins
+ * @see <a href="https://github.com/strazdinsg/datakomm-tools/tree/master" target="_blank">External Repository</a>
  */
 public class MessageSerializer {
-
 
   public static final String CHANNEL_COUNT_COMMAND = "n";
   public static final String CHANNEL_UP_COMMAND = "+";
@@ -30,15 +31,12 @@ public class MessageSerializer {
    * @param s The string sent over the communication channel
    * @return The logical message, as interpreted according to the protocol
    */
-
   public static Message fromString(String s) {
-    Message m;
     if (s.isEmpty() || s.equals("null")) {
       return new IgnoreCommand();
     }
     char firstS = s.charAt(0);
-
-    m = switch (firstS) {
+    return switch (firstS) {
       case 'n' -> new ChannelCountCommand();
       case 'c' -> new SetChannelCommand(s);
       case '1' -> new TurnOnCommand();
@@ -48,7 +46,6 @@ public class MessageSerializer {
       case 'm' -> new ToggleMuteCommand();
       default -> new IgnoreCommand();
     };
-    return m;
   }
 
   /**

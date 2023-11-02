@@ -16,8 +16,12 @@ import no.gruppe15.remote.gui.RemoteApp;
 /**
  * This class represents the remote client.
  *
+ * <p>Code Inspiration:
+ * The foundation of this class is inspired by the work of Girts Strazdins.
+ *
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
- * @version 30.10.2023
+ * @version 02.11.2023
+ * @see <a href="https://github.com/strazdinsg/datakomm-tools/tree/master" target="_blank">External Repository</a>
  */
 public class RemoteClient {
 
@@ -77,6 +81,15 @@ public class RemoteClient {
   }
 
   /**
+   * This method should return the current server host.
+   *
+   * @return the current server host.
+   */
+  public String getServerHost() {
+    return SERVER_HOST + ":" + PORT_NUMBER;
+  }
+
+  /**
    * Send a command to the TV.
    *
    * @param command The command to send
@@ -85,6 +98,14 @@ public class RemoteClient {
     if (socketWriter != null && socketReader != null) {
       try {
         socketWriter.println(MessageSerializer.toString(command));
+        System.out.println("Sending command: " + MessageSerializer.toString(command));
+        String serverResponse;
+        try {
+          serverResponse = socketReader.readLine();
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+        System.out.println("Server response: " + serverResponse);
       } catch (Exception e) {
         System.err.println("Could not send a command: " + e.getMessage());
       }

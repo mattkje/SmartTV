@@ -12,6 +12,7 @@ The following messages could be sent from point to server:
 * "c###" set current channel, where ### is the desired channel number ("c1", "c2", "c3"... "c255")
 * "+" Go up one channel
 * "-" Go down one channel
+* "m" Mute audio
 
 Server can respond with:
 * "o" - performed the necessary action

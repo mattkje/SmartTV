@@ -29,7 +29,7 @@ import no.gruppe15.remote.RemoteClient;
  * Controller class for the RemoteApp class.
  *
  * @author Matti Kjellstadli, Adrian Johansen, Håkon Karlsen, Di Xie
- * @version 23.10.2023
+ * @version 02.11.2023
  */
 public class RemoteController implements Initializable {
 
