@@ -17,7 +17,7 @@ public class RemoteMain {
    * @param args Command-line arguments (not used in this application).
    */
   public static void main(String[] args) {
-    RemoteLogic logic = new RemoteLogic();
+    RemoteClient logic = new RemoteClient();
     if (logic.start()) {
       System.out.println("Starting in connected mode");
     } else {

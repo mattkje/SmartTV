@@ -23,7 +23,7 @@ import no.gruppe15.command.SetChannelCommand;
 import no.gruppe15.command.ToggleMuteCommand;
 import no.gruppe15.command.TurnOffCommand;
 import no.gruppe15.command.TurnOnCommand;
-import no.gruppe15.remote.RemoteLogic;
+import no.gruppe15.remote.RemoteClient;
 
 /**
  * Controller class for the RemoteApp class.
@@ -35,7 +35,7 @@ public class RemoteController implements Initializable {
 
   private Timeline timeline;
 
-  private RemoteLogic logic;
+  private RemoteClient logic;
 
   @FXML
   private TextField textField;
@@ -180,7 +180,7 @@ public class RemoteController implements Initializable {
    *
    * @param logic The RemoteLogic.
    */
-  public void setLogic(RemoteLogic logic) {
+  public void setLogic(RemoteClient logic) {
     this.logic = logic;
   }
 

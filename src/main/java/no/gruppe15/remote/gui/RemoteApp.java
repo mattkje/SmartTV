@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import no.gruppe15.remote.RemoteLogic;
+import no.gruppe15.remote.RemoteClient;
 
 /**
  * GUI For the remote controller.
@@ -20,7 +20,7 @@ public class RemoteApp extends Application {
    *
    * @param logic The Remote logic class
    */
-  public static void startApp(RemoteLogic logic) {
+  public static void startApp(RemoteClient logic) {
     controller = new RemoteController();
     controller.setLogic(logic);
     launch();
